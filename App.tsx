@@ -1,6 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { PaperProvider, DefaultTheme } from "react-native-paper";
+import { PaperProvider, DefaultTheme, Button } from "react-native-paper";
 import RootNavigation from "./navigation/RootNavigator";
+import { StyleSheet } from "react-native";
 
 
 const theme = {
@@ -11,7 +12,9 @@ const theme = {
     secondary: 'yellow',
   },
 };
+
 // TODO: 탭바에 아이콘 추가하기
+
 
 export default function App() {
   return (
