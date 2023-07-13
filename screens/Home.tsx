@@ -7,7 +7,6 @@ import SubtractButton from "../Components/SubtractButton";
 const style = StyleSheet.create({
     view: {
         flex: 1,
-        backgroundColor: "white"
     }
 })
 

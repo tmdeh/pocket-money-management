@@ -6,7 +6,6 @@ import { PlusButton, SubtractButton } from "../Components";
 const style = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "white"
     }
 })
 
