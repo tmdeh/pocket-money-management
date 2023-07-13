@@ -1,6 +1,5 @@
 import React from "react";
 import { Text } from "react-native-paper";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { PlusButton, SubtractButton } from "../Components";
 import { StyleSheet, View } from "react-native";
 

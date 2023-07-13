@@ -1,3 +1,4 @@
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import {
   CalenderScreen,
@@ -8,15 +9,15 @@ import {
 } from "../screens";
 import { AntDesign, Feather, Ionicons } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 
 const Tab = createBottomTabNavigator();
 
 const screenStyle = StyleSheet.create({
   contianer: {
-    flex: 1
-  }
-})
+    flex: 1,
+  },
+});
 
 interface IconProps {
   focused: boolean;
@@ -24,9 +25,7 @@ interface IconProps {
   size: number;
 }
 
-
 export default function BottomTabNavigation() {
-
   const now = useMemo(getNow, []);
 
   function getNow(): string {
@@ -35,7 +34,7 @@ export default function BottomTabNavigation() {
     output += today.getFullYear() + "년 ";
     output += today.getMonth() + "월 ";
     output += today.getDate() + "일 ";
-    return output
+    return output;
   }
 
   function setOption(iconName: any) {
@@ -47,14 +46,14 @@ export default function BottomTabNavigation() {
           tabBarIcon: ({ color, size }: IconProps) => (
             <AntDesign name={iconName} size={size} color={color} />
           ),
-          headerTitle: now
+          headerTitle: now,
         };
       case "stats-chart-outline":
         return {
           tabBarIcon: ({ color, size }: IconProps) => (
             <Ionicons name={iconName} size={size} color={color} />
           ),
-          headerTitle: now
+          headerTitle: now,
         };
       case "settings":
         return {
@@ -65,7 +64,7 @@ export default function BottomTabNavigation() {
         };
     }
   }
-  
+
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -77,7 +76,7 @@ export default function BottomTabNavigation() {
         <Tab.Screen
           name="Home"
           component={HomeScreen}
-          initialParams={{style: screenStyle}}
+          initialParams={{ style: screenStyle }}
           options={setOption("home")}
         />
         <Tab.Screen
@@ -88,13 +87,13 @@ export default function BottomTabNavigation() {
         <Tab.Screen
           name="Stats"
           component={StatsScreens}
-          initialParams={{style: screenStyle}}
+          initialParams={{ style: screenStyle }}
           options={setOption("stats-chart-outline")}
         />
         <Tab.Screen
           name="Shopping"
           component={ShoppingScreen}
-          initialParams={{style: screenStyle}}
+          initialParams={{ style: screenStyle }}
           options={setOption("shoppingcart")}
         />
       </Tab.Group>
