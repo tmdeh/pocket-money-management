@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
-import { PlusButton, SubtractButton } from "../Components";
+import { PlusButton, SubtractButton } from "../components";
 
 const style = StyleSheet.create({
   container: {

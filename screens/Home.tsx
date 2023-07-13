@@ -1,8 +1,8 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Text } from "react-native-paper";
-import PlusButton from "../Components/PlusButton";
-import SubtractButton from "../Components/SubtractButton";
+import PlusButton from "../components/PlusButton";
+import SubtractButton from "../components/SubtractButton";
 
 const style = StyleSheet.create({
   view: {

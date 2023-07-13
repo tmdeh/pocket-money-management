@@ -1,6 +1,6 @@
 import React from "react";
 import { Text } from "react-native-paper";
-import { PlusButton, SubtractButton } from "../Components";
+import { PlusButton, SubtractButton } from "../components";
 import { StyleSheet, View } from "react-native";
 
 
