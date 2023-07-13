@@ -8,6 +8,7 @@ import {
 } from "../screens";
 import { AntDesign, Feather, Ionicons } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
+import { useEffect, useMemo } from "react";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,11 +18,24 @@ const screenStyle = StyleSheet.create({
   }
 })
 
+interface IconProps {
+  focused: boolean;
+  color: string;
+  size: number;
+}
+
+
 export default function BottomTabNavigation() {
-  interface IconProps {
-    focused: boolean;
-    color: string;
-    size: number;
+
+  const now = useMemo(getNow, []);
+
+  function getNow(): string {
+    const today = new Date();
+    let output = "";
+    output += today.getFullYear() + "년 ";
+    output += today.getMonth() + "월 ";
+    output += today.getDate() + "일 ";
+    return output
   }
 
   function setOption(iconName: any) {
@@ -33,12 +47,14 @@ export default function BottomTabNavigation() {
           tabBarIcon: ({ color, size }: IconProps) => (
             <AntDesign name={iconName} size={size} color={color} />
           ),
+          headerTitle: now
         };
       case "stats-chart-outline":
         return {
           tabBarIcon: ({ color, size }: IconProps) => (
             <Ionicons name={iconName} size={size} color={color} />
           ),
+          headerTitle: now
         };
       case "settings":
         return {
@@ -49,10 +65,6 @@ export default function BottomTabNavigation() {
         };
     }
   }
-
-  // TODO:
-  //  1. 수입/지출 화면 추가
-  //  2. Home 화면에 수입과 지출 추가
   
   return (
     <Tab.Navigator
