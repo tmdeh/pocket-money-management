@@ -1,7 +1,6 @@
 import React from "react";
-import { Text } from "react-native-paper";
 import { PlusButton, SubtractButton } from "../components";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 const style = StyleSheet.create({
   container: {

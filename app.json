@@ -1,11 +1,12 @@
 {
   "expo": {
-    "name": "my-app",
-    "slug": "my-app",
+    "name": "pocket-money-management-expo",
+    "slug": "pocket-money-management-expo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "scheme": "testing",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

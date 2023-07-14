@@ -6,7 +6,7 @@ import {
   SettingsScreen,
   ShoppingScreen,
   StatsScreens,
-} from "../screens";
+} from "../app/screens";
 import { AntDesign, Feather, Ionicons } from "@expo/vector-icons";
 import { StyleSheet } from "react-native";
 import { useMemo } from "react";

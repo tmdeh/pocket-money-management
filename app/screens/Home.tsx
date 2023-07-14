@@ -1,19 +1,20 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import { Text } from "react-native-paper";
-import PlusButton from "../components/PlusButton";
-import SubtractButton from "../components/SubtractButton";
+import MoneyStats from "../components/Home/MoneyStats";
+import Recent from "../components/Home/Recent";
+import { PlusButton, SubtractButton } from "../components";
 
 const style = StyleSheet.create({
-  view: {
+  container: {
     flex: 1,
   },
 });
 
 export default function HomeScreen(): JSX.Element {
   return (
-    <View style={style.view}>
-      <Text>홈 화면</Text>
+    <View style={style.container}>
+      <MoneyStats />
+      <Recent />
       <PlusButton />
       <SubtractButton />
     </View>
