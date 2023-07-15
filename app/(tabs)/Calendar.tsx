@@ -12,8 +12,8 @@ export default function CalenderScreen(): JSX.Element {
   return (
     <View style={style.container}>
       <Text>캘린더 화면</Text>
-      {/* <PlusButton />
-      <SubtractButton /> */}
+      <PlusButton />
+      <SubtractButton />
     </View>
   );
 }
