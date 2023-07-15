@@ -1,6 +1,8 @@
 import React from "react";
 import { Entypo } from "@expo/vector-icons";
 import { StyleSheet, TouchableOpacity, Platform, View } from "react-native";
+import { useNavigation } from "@react-navigation/core";
+import { AddIncomeScreenProp, RootStackParamList } from "../../types";
 
 const style = StyleSheet.create({
   button: {
@@ -14,14 +16,15 @@ const style = StyleSheet.create({
   },
 });
 
-interface PlusButtonProps {}
+export default function PlusButton() {
 
-export default function PlusButton({}: PlusButtonProps) {
+  const navigation = useNavigation<AddIncomeScreenProp>();
+
   return (
     <View style={style.container}>
       <TouchableOpacity
         style={style.button}
-        onPress={() => console.log("pressed2")}
+        onPress={() => navigation.navigate("AddIncome")}
       >
         <Entypo name="plus" size={50} color="white" />
       </TouchableOpacity>

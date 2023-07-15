@@ -1,6 +1,8 @@
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { createNavigationContainerRef, useNavigation } from "@react-navigation/core";
+import { RootStackParamList, SubtractScreenProp } from "../../types";
 
 const style = StyleSheet.create({
   button: {
@@ -14,14 +16,15 @@ const style = StyleSheet.create({
   },
 });
 
-interface SubtractProps {}
+export default function SubtractButton() {
 
-export default function SubtractButton({}: SubtractProps) {
+  const navigation = useNavigation<SubtractScreenProp>();
+
   return (
     <View style={style.container}>
       <TouchableOpacity
         style={style.button}
-        onPress={() => console.log("pressed")}
+        onPress={() => navigation.navigate("Subtract")}
       >
         <AntDesign name="minus" size={50} color="white" />
       </TouchableOpacity>

@@ -70,6 +70,7 @@ export default function BottomTabNavigation() {
       initialRouteName="Home"
       screenOptions={{
         tabBarShowLabel: false,
+        tabBarActiveTintColor: "#000"
       }}
     >
       <Tab.Group>
