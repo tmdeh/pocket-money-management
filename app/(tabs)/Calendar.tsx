@@ -1,6 +1,6 @@
 import React from "react";
-import { PlusButton, SubtractButton } from "../components";
 import { StyleSheet, Text, View } from "react-native";
+import { PlusButton, SubtractButton } from "../../components";
 
 const style = StyleSheet.create({
   container: {
@@ -8,12 +8,12 @@ const style = StyleSheet.create({
   },
 });
 
-export default function StatsScreens(): JSX.Element {
+export default function CalenderScreen(): JSX.Element {
   return (
     <View style={style.container}>
-      <Text>통계 화면</Text>
-      <PlusButton />
-      <SubtractButton />
+      <Text>캘린더 화면</Text>
+      {/* <PlusButton />
+      <SubtractButton /> */}
     </View>
   );
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import { PlusButton, SubtractButton } from "../components";
+import { PlusButton, SubtractButton } from "../../components";
 import { StyleSheet, Text, View } from "react-native";
 
 
@@ -9,12 +9,12 @@ const style = StyleSheet.create({
     }
 })
 
-export default function ShoppingScreen(): JSX.Element {
+export default function ShoppingScreen() {
     return (
         <View style={style.container}>
             <Text>장보기 화면</Text>
-            <PlusButton />
-            <SubtractButton />
+            {/* <PlusButton />
+            <SubtractButton /> */}
         </View>
     ) 
 

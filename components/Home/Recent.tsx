@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import RecentItem from "./RecentItem";
-import MealIcon from "../../../assets/icon/meal";
+import MealIcon from "../../assets/icon/meal";
 import { ScrollView } from "react-native-gesture-handler";
 
 
