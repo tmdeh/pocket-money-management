@@ -15,14 +15,6 @@ const style = StyleSheet.create({
 });
 
 export default function HomeScreen(): JSX.Element {
-  const { createBreakDown, createCategory } = useContext(DBContext);
-
-  useEffect(() => {
-    Promise.all([createBreakDown(), createCategory()])
-      .then(async () => await insertCategory("Meal"))
-      .catch((e) => console.error(e));
-  }, []);
-
   return (
     <View style={style.container}>
       <MoneyStats />

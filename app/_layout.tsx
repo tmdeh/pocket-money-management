@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { useColorScheme } from "react-native";
 import {
   DarkTheme,
@@ -6,9 +6,19 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { Stack } from "expo-router";
-import { DBContext, createBreakDown, createCategory } from "../context/sqlite";
+import { DBContext } from "../context/sqlite";
 
 export default function RootLayout() {
+
+
+  const { createBreakDown, createCategory, insertCategory } = useContext(DBContext);
+
+  useEffect(() => {
+    Promise.all([createBreakDown(), createCategory()])
+      .then(async () => await insertCategory("Meal"))
+      .catch((e) => console.error(e));
+  }, []);
+
   return <RootLayoutNav />;
 }
 
