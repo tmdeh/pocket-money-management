@@ -3,10 +3,6 @@ import { StyleSheet, Text, View } from "react-native";
 import MoneyStats from "../../components/Home/MoneyStats";
 import Recent from "../../components/Home/Recent";
 import { PlusButton, SubtractButton } from "../../components";
-import {
-  DBContext,
-  insertCategory,
-} from "../../context/sqlite";
 
 const style = StyleSheet.create({
   container: {

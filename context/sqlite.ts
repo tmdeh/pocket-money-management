@@ -29,6 +29,7 @@ export function createBreakDown() {
     price INTEGER NOT NULL,
     category_id INTGER
     date DATE,
+    memo TEXT,
     CONSTRAINT category_key FOREIGN KEY(category_id)
     REFERENCES category(id)
   );`
