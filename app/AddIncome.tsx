@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import AddIncomeList from "../components/AddIncome/list";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import Button from "../components/Button";
+import MemoModal from "../components/AddIncome/memoModal";
 
 
 const styles = StyleSheet.create({
@@ -44,9 +44,10 @@ const styles = StyleSheet.create({
 
 
 export default function AddIncome() {
+  const [modalVisible, setModalVisible] = useState(false);
 
   return(
-    <KeyboardAvoidingView style={styles.container} behavior="height">
+    <KeyboardAvoidingView style={styles.container}>
       <View style={styles.priceInputContainer}>
         <TextInput placeholder="1000원" style={styles.priceInput} keyboardType="number-pad" />
       </View>
@@ -56,10 +57,11 @@ export default function AddIncome() {
         </ScrollView>
       </View>
       <View style={styles.buttonContainer}>
-        <Button width={300} height={40} backgroundColor="black" text="메모 입력하기" fontColor="white" />
+        <Button width={300} height={40} backgroundColor="black" text="메모 입력하기" fontColor="white" onPress={() => setModalVisible(!modalVisible)}/>
+        <MemoModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
       </View>
       <View style={styles.buttonContainer}>
-        <Button width={150} height={40} backgroundColor="black" text="확인" fontColor="white"/>
+        <Button width={150} height={40} backgroundColor="black" text="확인" fontColor="white" onPress={() => console.log('confirm')}/>
       </View>
     </KeyboardAvoidingView>
   )

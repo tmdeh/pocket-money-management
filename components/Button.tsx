@@ -7,7 +7,8 @@ interface ButtonProp {
   width: number,
   height: number,
   backgroundColor: string,
-  fontColor: string
+  fontColor: string,
+  onPress: Function
 }
 
 const styles = StyleSheet.create({
@@ -17,9 +18,9 @@ const styles = StyleSheet.create({
   },
 })
 
-export default function Button({text, width, height, backgroundColor, fontColor}: ButtonProp) {
+export default function Button({text, width, height, backgroundColor, fontColor, onPress}: ButtonProp) {
   return(
-    <TouchableOpacity style={[{width, height, backgroundColor, borderRadius: 5, justifyContent: "center"}]}>
+    <TouchableOpacity style={[{width, height, backgroundColor, borderRadius: 5, justifyContent: "center"}]} onPress={() => onPress()}>
       <Text style={[{color: fontColor, textAlign: "center", fontSize: 20}]}>{text}</Text>
     </TouchableOpacity>
   )
