@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import AddIncomeList from "../components/AddIncome/list";
 import Button from "../components/Button";
-import MemoModal from "../components/AddIncome/memoModal";
+import MemoModal from "../components/memoModal";
 
 
 const styles = StyleSheet.create({
@@ -41,10 +41,21 @@ const styles = StyleSheet.create({
   }
 })
 
+export interface UserInput {
+  price: number,
+  category: 1 | 2 | 3 | 4,
+  memo: string
+}
 
 
 export default function AddIncome() {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+  
+  const [userInput, setUserInput] = useState<UserInput>({
+    price: 0,
+    category: 1,
+    memo: ""
+  });
 
   return(
     <KeyboardAvoidingView style={styles.container}>
@@ -53,12 +64,12 @@ export default function AddIncome() {
       </View>
       <View style={styles.categoryScrollView}>
         <ScrollView horizontal={true}>
-          <AddIncomeList iconSize={50} />
+          <AddIncomeList iconSize={50} selected={userInput.category} setUserInput={setUserInput} />
         </ScrollView>
       </View>
       <View style={styles.buttonContainer}>
         <Button width={300} height={40} backgroundColor="black" text="메모 입력하기" fontColor="white" onPress={() => setModalVisible(!modalVisible)}/>
-        <MemoModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
+        <MemoModal modalVisible={modalVisible} setModalVisible={setModalVisible} setUserInput={setUserInput} />
       </View>
       <View style={styles.buttonContainer}>
         <Button width={150} height={40} backgroundColor="black" text="확인" fontColor="white" onPress={() => console.log('confirm')}/>

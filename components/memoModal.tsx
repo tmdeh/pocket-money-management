@@ -1,10 +1,12 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import { KeyboardAvoidingView, Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+import { UserInput } from "../app/AddIncome";
 
 
 interface MemoModalProp {
   modalVisible: boolean
   setModalVisible: Dispatch<SetStateAction<boolean>>
+  setUserInput: Dispatch<SetStateAction<UserInput>>
 }
 
 
@@ -61,7 +63,18 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function MemoModal({modalVisible, setModalVisible}: MemoModalProp) {
+export default function MemoModal({modalVisible, setModalVisible, setUserInput}: MemoModalProp) {
+
+  const [memo, setMemo] = useState<string>("");
+    
+  function onPressConfirm() {
+    setUserInput(pre => {
+      pre.memo = memo
+      return pre
+    });
+    setModalVisible(!modalVisible);
+  }
+
   return(
     <Modal
     animationType="slide"
@@ -73,10 +86,10 @@ export default function MemoModal({modalVisible, setModalVisible}: MemoModalProp
     <KeyboardAvoidingView style={styles.centeredView} behavior="padding">
       <View style={styles.modalView}>
         <Text style={styles.modalText}>메모</Text>
-        <TextInput multiline={true} style={styles.inputMemo}/>
+        <TextInput multiline={true} style={styles.inputMemo} onChangeText={setMemo} />
         <Pressable
           style={[styles.button, styles.buttonClose]}
-          onPress={() => setModalVisible(!modalVisible)}>
+          onPress={onPressConfirm}>
           <Text style={styles.textStyle}>확인</Text>
         </Pressable>
       </View>

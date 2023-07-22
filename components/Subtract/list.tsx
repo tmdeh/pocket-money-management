@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import { FontAwesome5, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
+import { FontAwesome5, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
 import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { UserInput } from "../../app/AddIncome";
@@ -60,24 +60,39 @@ export default function AddIncomeList({iconSize, selected, setUserInput}: AddInc
   const icons = [
     {
       id: 1,
-      icon: <FontAwesome5 name="coins" size={iconSize} color="black" />,
-      label: "월급"
+      icon: <MaterialCommunityIcons name="silverware-fork-knife" size={iconSize} color="black" />,
+      label: "식비"
     },
     {
       id: 2,
-      icon: <FontAwesome5 name="money-bill-wave" size={iconSize} color="black" />,
-      label: "용돈"
+      icon: <FontAwesome5 name="briefcase-medical" size={iconSize} color="black" />,
+      label: "의료"
     },
     {
       id: 3,
-      icon: <MaterialCommunityIcons name="hand-coin" size={iconSize} color="black" />,
-      label: "보너스"
+      icon: <FontAwesome5 name="bus" size={iconSize} color="black" />,
+      label: "교통"
     },
     {
       id: 4,
-      icon: <AntDesign name="question" size={iconSize} color="black" />,
+      icon: <FontAwesome5 name="pen" size={iconSize} color="black" />,
+      label: "자기계발"
+    },
+    {
+      id: 5,
+      icon: <FontAwesome name="shopping-bag" size={iconSize} color="black" />,
+      label: "생필품"
+    },
+    {
+      id: 6,
+      icon: <FontAwesome name="shopping-bag" size={iconSize} color="black" />,
+      label: "저축"
+    },
+    {
+      id: 7,
+      icon: <FontAwesome name="shopping-bag" size={iconSize} color="black" />,
       label: "기타"
-    }
+    }, 
   ]
   
   
