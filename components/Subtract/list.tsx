@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import { FontAwesome5, MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons';
+import { FontAwesome5, MaterialCommunityIcons, FontAwesome, AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { UserInput } from "../../app/AddIncome";
@@ -85,12 +85,12 @@ export default function AddIncomeList({iconSize, selected, setUserInput}: AddInc
     },
     {
       id: 6,
-      icon: <FontAwesome name="shopping-bag" size={iconSize} color="black" />,
+      icon: <MaterialIcons name="attach-money" size={iconSize} color="black" />,
       label: "저축"
     },
     {
       id: 7,
-      icon: <FontAwesome name="shopping-bag" size={iconSize} color="black" />,
+      icon: <AntDesign name="question" size={iconSize} color="black" />,
       label: "기타"
     }, 
   ]

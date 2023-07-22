@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import { FontAwesome5, MaterialCommunityIcons, AntDesign } from '@expo/vector-icons';
+import { FontAwesome5, MaterialCommunityIcons, AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { UserInput } from "../../app/AddIncome";
@@ -70,7 +70,7 @@ export default function AddIncomeList({iconSize, selected, setUserInput}: AddInc
     },
     {
       id: 3,
-      icon: <MaterialCommunityIcons name="hand-coin" size={iconSize} color="black" />,
+      icon: <MaterialIcons name="attach-money" size={iconSize} color="black" />,
       label: "보너스"
     },
     {
