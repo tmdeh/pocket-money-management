@@ -55,7 +55,7 @@ export default function TabLayout() {
 
 
   return(
-    <Tabs screenOptions={{tabBarShowLabel: false}}>
+    <Tabs screenOptions={{tabBarShowLabel: false, tabBarActiveTintColor: "black"}}>
       <Tabs.Screen name="index" options={setOption("home")} />
       <Tabs.Screen name="Calendar" options={setOption("calendar")} />
       <Tabs.Screen name="Stats" options={setOption("stats-chart-outline")} />
