@@ -1,12 +1,10 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { KeyboardAvoidingView, Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { UserInput } from "../app/AddIncome";
 
 
 interface MemoModalProp {
   modalVisible: boolean
   setModalVisible: Dispatch<SetStateAction<boolean>>
-  setUserInput: Dispatch<SetStateAction<UserInput>>
 }
 
 
@@ -63,15 +61,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function MemoModal({modalVisible, setModalVisible, setUserInput}: MemoModalProp) {
+export default function MemoModal({modalVisible, setModalVisible}: MemoModalProp) {
 
   const [memo, setMemo] = useState<string>("");
     
   function onPressConfirm() {
-    setUserInput(pre => {
-      pre.memo = memo
-      return pre
-    });
+    //TODO: 메모 입력 업데이트
     setModalVisible(!modalVisible);
   }
 
