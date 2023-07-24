@@ -6,21 +6,10 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { Stack } from "expo-router";
-import { DBContext } from "../context/sqlite";
 import { Provider } from "react-redux";
 import { store } from "../redux/store";
 
 export default function RootLayout() {
-
-
-  const { createBreakDown, createCategory, insertCategory } = useContext(DBContext);
-
-  useEffect(() => {
-    Promise.all([createBreakDown(), createCategory()])
-      .then(async () => await insertCategory("Meal"))
-      .catch((e) => console.error(e));
-  }, []);
-
   return <RootLayoutNav />;
 }
 
