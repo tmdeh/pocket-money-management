@@ -1,8 +1,8 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { KeyboardAvoidingView, Modal, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { useDispatch } from "react-redux";
-import { AppDispatch, RootState } from "../redux/store";
-import { userInputSlice } from "../redux/slice/userInput";
+import { AppDispatch, RootState } from "../../redux/store";
+import { userInputSlice } from "../../redux/slice/userInput";
 import { useSelector } from "react-redux";
 
 

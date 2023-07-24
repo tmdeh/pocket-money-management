@@ -29,13 +29,11 @@ export const userInputSlice = createSlice({
       else if(price) {
         state.price = price;
       }
-      console.log(state)
       return state
     },
     clear: () => {
-      console.log("clear")
       return {
-        category: 0,
+        category: 1,
         price: 0,
         memo: ""
       }
