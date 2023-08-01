@@ -11,23 +11,23 @@ interface SpendingIconProp {
 export default function AddIncomeIcon({iconSize, userInput}: SpendingIconProp) {
   return  [
     {
-      id: 1,
-      icon: <FontAwesome5 name="coins" size={iconSize} color={userInput?.category == 1 ? "white" : "black"} />,
+      id: 0,
+      icon: <FontAwesome5 name="coins" size={iconSize} color={userInput?.category == 0 ? "white" : "black"} />,
       label: "월급"
     },
     {
-      id: 2,
-      icon: <FontAwesome5 name="money-bill-wave" size={iconSize} color={userInput?.category == 2 ? "white" : "black"} />,
+      id: 1,
+      icon: <FontAwesome5 name="money-bill-wave" size={iconSize} color={userInput?.category == 1 ? "white" : "black"} />,
       label: "용돈"
     },
     {
-      id: 3,
-      icon: <MaterialIcons name="attach-money" size={iconSize} color={userInput?.category == 3 ? "white" : "black"} />,
+      id: 2,
+      icon: <MaterialIcons name="attach-money" size={iconSize} color={userInput?.category == 2 ? "white" : "black"} />,
       label: "보너스"
     },
     {
-      id: 4,
-      icon: <AntDesign name="question" size={iconSize} color={userInput?.category == 4 ? "white" : "black"} />,
+      id: 3,
+      icon: <AntDesign name="question" size={iconSize} color={userInput?.category == 3 ? "white" : "black"} />,
       label: "기타"
     }
   ]

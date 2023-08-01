@@ -11,7 +11,7 @@ interface UserInput {
 export const userInputSlice = createSlice({
   name: "userInput",
   initialState: {
-    category: 1,
+    category: 0,
     price: 0,
     memo: "",
   },
@@ -20,7 +20,7 @@ export const userInputSlice = createSlice({
 
       const { category, memo, price }= action.payload;
 
-      if(category) {
+      if(category !== undefined && category >= 0) {
         state.category = category;
       }
       else if(memo) {
@@ -33,7 +33,7 @@ export const userInputSlice = createSlice({
     },
     clear: () => {
       return {
-        category: 1,
+        category: 0,
         price: 0,
         memo: "",
       }

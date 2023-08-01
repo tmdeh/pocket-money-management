@@ -36,7 +36,8 @@ export interface HistoryItem {
 
 export const historyAsyncAdd = createAsyncThunk(
   'history/add',
-  async ({category, price, memo, type}: IAddHistory, thunkAPI) => {
+  async ({category, price, memo, type}: IAddHistory) => {
+    console.log({category, price, memo, type})
     try {
       const historyString = await AsyncStorage.getItem("history");
       if(historyString === null) {
