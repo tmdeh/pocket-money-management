@@ -11,7 +11,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const style = StyleSheet.create({
   container: {
     flex: 1,
-  },
+    alignItems: "center",
+  }
 });
 
 export default function HomeScreen(): JSX.Element {
@@ -39,7 +40,7 @@ export default function HomeScreen(): JSX.Element {
 
   return (
     <View style={style.container}>
-      <MoneyStats />
+      <MoneyStats left={historyData.left} income={historyData.income} spending={historyData.spending} />
       <Recent list={historyData.history} />
       <PlusButton />
       <SubtractButton />

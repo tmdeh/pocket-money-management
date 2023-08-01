@@ -54,7 +54,13 @@ export const historyAsyncAdd = createAsyncThunk(
 
       // 저장소에 추가
       store.history.push(item);
-      store.left += price;
+      if(type === 1) {
+        store.left -= price;
+      }
+      else {
+        store.left += price;
+      }
+
   
       switch(type) {
         case HistoryType.INCOME:
