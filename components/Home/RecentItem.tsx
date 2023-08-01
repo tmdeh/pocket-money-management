@@ -1,4 +1,5 @@
 import React from "react";
+import { Platform } from 'react-native';
 import { StyleSheet, Text, View } from "react-native";
 import { HistoryType } from "../../redux/slice/history";
 
@@ -33,6 +34,26 @@ const styles = StyleSheet.create({
     borderRightColor: "white",
     borderRadius: 10,
     backgroundColor: "#fff",
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+    borderEndWidth: 0,
+    borderStartWidth: 0,
+    ...Platform.select({
+      ios: {
+          shadowColor: 'black',
+          shadowOffset: {
+          width: 0,
+          height: 10,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3,
+      },
+      android: {
+        elevation: 10,
+      },
+    })
   },
   income: {
 
