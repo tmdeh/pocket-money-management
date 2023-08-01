@@ -3,6 +3,7 @@ import AddHistory from "../components/History/AddHistory";
 import { FontAwesome5, MaterialIcons, AntDesign } from '@expo/vector-icons';
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { HistoryType } from "../redux/slice/history";
 
 
 
@@ -34,6 +35,6 @@ export default function AddIncome() {
   ]
 
   return(
-    <AddHistory icons={icons} type="income" />
+    <AddHistory icons={icons} type={HistoryType.INCOME} />
   )
 }

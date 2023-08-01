@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { userInputSlice } from "./slice/userInput";
+import { historySlice } from "./slice/history";
 
 
 
 export const store = configureStore({
   reducer: {
-    userInput: userInputSlice.reducer
+    userInput: userInputSlice.reducer,
+    history: historySlice.reducer
   }
 })
 

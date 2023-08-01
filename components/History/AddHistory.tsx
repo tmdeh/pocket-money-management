@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { router } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import Button from "../Button";
 import MemoModal from "./memoModal";
 import { useDispatch } from "react-redux";
@@ -9,6 +9,7 @@ import { AppDispatch, RootState } from "../../redux/store";
 import { userInputSlice } from "../../redux/slice/userInput";
 import { useSelector } from "react-redux";
 import CategoryList from "./CategoryLIst";
+import { HistoryType, historyAsyncAdd } from "../../redux/slice/history";
 
 const styles = StyleSheet.create({
   container: {
@@ -59,7 +60,7 @@ interface AddIncomeProps {
     icon: JSX.Element,
     label: string
   }[],
-  type: string,
+  type: HistoryType,
 }
 
 
@@ -78,22 +79,10 @@ export default function AddHistory({icons, type}: AddIncomeProps) {
       console.log(error)
     }
   } 
-  function onClickConfirm() {
+  async function onClickConfirm() {
     try {
       const { price, category, memo } = userInput;
-      const now = Date.now()
-
-      if(price <= 0) {
-        return;
-      }
-      const dataString = JSON.stringify({
-        type: type,
-        price,
-        category,
-        memo,
-        date: now
-      });
-      AsyncStorage.setItem("transaction-history", dataString);
+      dispatch(historyAsyncAdd({category, price, memo, type: type}));
       dispatch(userInputSlice.actions.clear());
     } catch (error) {
       console.log(error)

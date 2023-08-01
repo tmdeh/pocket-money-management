@@ -13,7 +13,7 @@ export const userInputSlice = createSlice({
   initialState: {
     category: 1,
     price: 0,
-    memo: ""
+    memo: "",
   },
   reducers: {
     update: (state, action: PayloadAction<UserInput>) => {
@@ -35,9 +35,9 @@ export const userInputSlice = createSlice({
       return {
         category: 1,
         price: 0,
-        memo: ""
+        memo: "",
       }
-    }
+    },
   }
 })
 

@@ -2,16 +2,19 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 interface RecentProps {
-  icon: React.JSX.Element,
   price: number,
-  category: string
+  category: number
 }
 
-export default function RecentItem({icon, price, category}: RecentProps) {
+const Icon = [
+  
+]
+
+export default function RecentItem({price, category}: RecentProps) {
   return(
     <View style={styles.container}>
       <View style={styles.iconTextWarpper}>
-        {icon}
+        {/* {icon} */}
         <Text style={styles.category}>{category}</Text>
       </View>
       <Text style={styles.price}>{price}원</Text>
