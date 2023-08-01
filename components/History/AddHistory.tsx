@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { router } from 'expo-router';
-import AsyncStorage, { useAsyncStorage } from '@react-native-async-storage/async-storage';
 import Button from "../Button";
 import MemoModal from "./memoModal";
 import { useDispatch } from "react-redux";
@@ -82,6 +81,9 @@ export default function AddHistory({icons, type}: AddIncomeProps) {
   async function onClickConfirm() {
     try {
       const { price, category, memo } = userInput;
+      if(price === 0) {
+        return;
+      }
       dispatch(historyAsyncAdd({category, price, memo, type: type}));
       dispatch(userInputSlice.actions.clear());
     } catch (error) {
