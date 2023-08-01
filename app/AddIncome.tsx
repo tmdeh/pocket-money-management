@@ -11,7 +11,7 @@ export default function AddIncome() {
   
   const userInput = useSelector((state: RootState ) => state.userInput);
   const iconSize = 50;
-  const icons = AddIncomeIcon({iconSize, userInput});
+  const icons = AddIncomeIcon({iconSize, category: userInput.category});
 
   return(
     <AddHistory icons={icons} type={HistoryType.INCOME} />

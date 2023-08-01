@@ -1,20 +1,22 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
+import { HistoryType } from "../../redux/slice/history";
 
 interface RecentProps {
   price: number;
   icon: JSX.Element;
   label: string;
+  type: HistoryType
 }
 
-export default function RecentItem({ price, icon, label }: RecentProps) {
+export default function RecentItem({ price, icon, label, type }: RecentProps) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, type ? styles.spending : null]}>
       <View style={styles.iconTextWarpper}>
         {icon}
-        <Text style={styles.label}>{label}</Text>
+        <Text style={[styles.label, type ? styles.spending : null]}>{label}</Text>
       </View>
-      <Text style={styles.price}>{price} 원</Text>
+      <Text style={[styles.price, type ? styles.spending : null]}>{price} 원</Text>
     </View>
   );
 }
@@ -32,6 +34,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#fff",
   },
+  income: {
+
+  },
+  spending: {
+    backgroundColor: "black",
+    color: "#fff"
+  },
   iconTextWarpper: {
     flexDirection: "row",
     justifyContent: "flex-start",
@@ -42,7 +51,9 @@ const styles = StyleSheet.create({
   label: {
     marginLeft: 30,
     fontSize: 20,
+    fontWeight: "bold"
   },
+
   price: {
     fontSize: 20,
     marginRight: 20,

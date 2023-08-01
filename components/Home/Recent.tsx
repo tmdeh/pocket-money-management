@@ -14,7 +14,7 @@ export default function Recent({ list }: RecentProp) {
 
   const iconSize = 50;
   const IncomeIcons = AddIncomeIcon({ iconSize });
-  const SpendingIcon = SependingIcon({ iconSize: iconSize });
+  const SpendingIcon = SependingIcon({ iconSize, isList: true });
 
   return (
     <ScrollView style={styles.container}>
@@ -32,6 +32,7 @@ export default function Recent({ list }: RecentProp) {
               ? IncomeIcons[v.category].icon
               : SpendingIcon[v.category].icon
           }
+          type={v.type}
         />
       ))}
     </ScrollView>

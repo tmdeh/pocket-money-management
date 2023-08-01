@@ -11,7 +11,7 @@ export default function Spending() {
   
   const userInput = useSelector((state: RootState ) => state.userInput);
   const iconSize = 50;
-  const icons = SependingIcon({iconSize, userInput});
+  const icons = SependingIcon({iconSize, category: userInput.category});
 
   return(
     <AddHistory icons={icons} type={HistoryType.SPENDING} />
