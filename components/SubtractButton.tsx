@@ -21,7 +21,7 @@ export default function SubtractButton() {
   return (
     <View style={style.container}>
       <Link
-        href={{pathname: "Subtract"}}
+        href={{pathname: "Spending"}}
         style={style.button}
       >
         <AntDesign name="minus" size={50} color="white" />

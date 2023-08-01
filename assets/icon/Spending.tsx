@@ -1,17 +1,17 @@
-import React from "react";
-import AddHistory from "../components/History/AddHistory";
-import { FontAwesome5, MaterialIcons, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
-import { HistoryType } from "../redux/slice/history";
+
+import React from 'react';
+import { MaterialCommunityIcons, FontAwesome5, MaterialIcons, AntDesign } from '@expo/vector-icons';
 
 
+interface SpendingIconProp {
+  iconSize: number,
+  userInput: {
+    category: number
+  }
+}
 
-export default function AddIncome() {
-  
-  const userInput = useSelector((state: RootState ) => state.userInput);
-  const iconSize = 50;
-  const icons = [ 
+export default function SependingIcon({iconSize, userInput}: SpendingIconProp) {
+  return [ 
     {
       id: 1,
       icon: <MaterialCommunityIcons name="silverware-fork-knife" size={iconSize} color={userInput.category == 1 ? "white" : "black"} />,
@@ -46,10 +46,7 @@ export default function AddIncome() {
       id: 7,
       icon: <AntDesign name="question" size={iconSize} color={userInput.category == 7 ? "white" : "black"} />,
       label: "기타"
-    }, 
+    },
   ]
-
-  return(
-    <AddHistory icons={icons} type={HistoryType.SPENDING} />
-  )
 }
+
