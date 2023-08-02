@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { PlusButton, SubtractButton } from "../../components";
+import Calender from "../../components/Calender/Calender";
 
 const style = StyleSheet.create({
   container: {
@@ -11,7 +12,7 @@ const style = StyleSheet.create({
 export default function CalenderScreen(): JSX.Element {
   return (
     <View style={style.container}>
-      <Text>캘린더 화면</Text>
+      <Calender />
       <PlusButton />
       <SubtractButton />
     </View>
