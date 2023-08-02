@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   categoryScrollView: {
-    flex: 0.2,
+    flex: 0.3,
+    marginBottom: 50
   },
   memoInput: {
     fontSize: 20,

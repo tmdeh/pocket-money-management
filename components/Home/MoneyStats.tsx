@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 0.4,
     width: "90%",
+    justifyContent: 'center',
     marginTop: 10,
     marginBottom: 20,
     borderRadius: 10,
@@ -45,7 +46,6 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 30,
     marginLeft: 10,
-    marginTop: 30,
     fontWeight: "bold"
   },
   text: {
