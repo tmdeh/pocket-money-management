@@ -7,7 +7,7 @@ export enum HistoryType {
   SPENDING
 }
 
-export enum HitoryStatus {
+export enum HistoryStatus {
   LOADING = "loading",
   COMPLETE = "complete",
 }
@@ -80,10 +80,28 @@ export const historyAsyncAdd = createAsyncThunk(
   }
 );
 
+
+export const historyAsyncLoad = createAsyncThunk(
+  'history/load',
+  async () => {
+    try {
+      const historyString = await AsyncStorage.getItem('history');
+      if(historyString === null) {
+        throw new Error('local stroage에 history가 없습니다.');
+      }
+
+      const data = JSON.parse(historyString)
+      return data;
+    } catch (error) {
+      console.error(error)
+    }
+  }
+)
+
 export const historySlice = createSlice({
   name: "history",
   initialState: {
-    state: HitoryStatus.LOADING,
+    state: HistoryStatus.LOADING,
     left: 0,
     spending: 0,
     income: 0,
@@ -93,7 +111,7 @@ export const historySlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(historyAsyncAdd.pending, (state, action) => {
-      state.state = HitoryStatus.LOADING;
+      state.state = HistoryStatus.LOADING;
     })
     
     builder.addCase(historyAsyncAdd.fulfilled, (state, action) => {
@@ -104,7 +122,23 @@ export const historySlice = createSlice({
         state.left = left,
         state.spending = spending
       }
-      state.state = HitoryStatus.COMPLETE;
+      state.state = HistoryStatus.COMPLETE;
+    })
+
+
+    builder.addCase(historyAsyncLoad.pending, (state, action) => {
+      state.state = HistoryStatus.LOADING;
+    })
+
+    builder.addCase(historyAsyncLoad.fulfilled, (state, action) => {
+      if(action.payload) {
+        const { history, income, left, spending } = action.payload;
+        state.history = history,
+        state.income = income,
+        state.left = left,
+        state.spending = spending
+      }
+      state.state = HistoryStatus.COMPLETE;
     })
   }
 })

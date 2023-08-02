@@ -21,7 +21,7 @@ export default function MoneyStats({left, income, spending}: MoneyStatsProp) {
 const styles = StyleSheet.create({
   container: {
     flex: 0.4,
-    width: "80%",
+    width: "90%",
     marginTop: 10,
     marginBottom: 20,
     borderRadius: 10,

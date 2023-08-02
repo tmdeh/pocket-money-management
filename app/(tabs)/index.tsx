@@ -4,9 +4,10 @@ import MoneyStats from "../../components/Home/MoneyStats";
 import Recent from "../../components/Home/Recent";
 import { PlusButton, SubtractButton } from "../../components";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
-import { History, HitoryStatus } from "../../redux/slice/history";
+import { AppDispatch, RootState } from "../../redux/store";
+import { History, HistoryStatus, historyAsyncLoad } from "../../redux/slice/history";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
 
 const style = StyleSheet.create({
   container: {
@@ -17,20 +18,27 @@ const style = StyleSheet.create({
 
 export default function HomeScreen(): JSX.Element {
 
+  const dispatch = useDispatch<AppDispatch>()
+
   const historyData: History = useSelector((state: RootState) => {
     return state.history
   })
 
   async function checkLocalSorage() {
-    if (!("history" in await AsyncStorage.getAllKeys())) {
+
+    const keys = await AsyncStorage.getAllKeys()
+    if (!(keys.find(v => v === "history"))) {
+      console.log('init')
       const initialState = {
-        state: HitoryStatus.LOADING,
+        state: HistoryStatus.LOADING,
         left: 0,
         spending: 0,
         income: 0,
         history: []
       };
       await AsyncStorage.setItem("history", JSON.stringify(initialState));
+    } else {
+      dispatch(historyAsyncLoad())
     }
   }
 
