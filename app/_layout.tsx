@@ -22,7 +22,7 @@ function RootLayoutNav() {
           <Stack>
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="AddIncome" options={{title: "수입 추가"}} />
-            <Stack.Screen name="Subtract" options={{title: "지출 추가"}} />
+            <Stack.Screen name="Spending" options={{title: "지출 추가"}} />
           </Stack>
         </ThemeProvider>
     </Provider>

@@ -3,17 +3,17 @@ import AddHistory from "../components/History/AddHistory";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { HistoryType } from "../redux/slice/history";
-import AddIncomeIcon from "../assets/icon/Income";
+import SependingIcon from "../assets/icon/Spending";
 
 
 
-export default function AddIncome() {
+export default function Spending() {
   
   const userInput = useSelector((state: RootState ) => state.userInput);
   const iconSize = 50;
-  const icons = AddIncomeIcon({iconSize, category: userInput.category});
+  const icons = SependingIcon({iconSize, category: userInput.category});
 
   return(
-    <AddHistory icons={icons} type={HistoryType.INCOME} />
+    <AddHistory icons={icons} type={HistoryType.SPENDING} />
   )
 }
