@@ -25,7 +25,7 @@ export default function Recent({ list }: RecentProp) {
               ? IncomeIcons[v.category].label
               : SpendingIcon[v.category].label
           }
-          price={v.price}
+          price={v.price.toLocaleString('ko-KR')}
           key={i}
           icon={
             v.type === 0

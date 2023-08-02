@@ -28,7 +28,6 @@ export default function HomeScreen(): JSX.Element {
 
     const keys = await AsyncStorage.getAllKeys()
     if (!(keys.find(v => v === "history"))) {
-      console.log('init')
       const initialState = {
         state: HistoryStatus.LOADING,
         left: 0,

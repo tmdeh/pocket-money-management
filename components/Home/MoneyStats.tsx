@@ -11,9 +11,9 @@ interface MoneyStatsProp {
 export default function MoneyStats({left, income, spending}: MoneyStatsProp) {
   return(
     <View style={styles.container}>
-      <Text style={styles.headerText}>남은돈: {left}원</Text>
-      <Text style={styles.text}>지출: {spending}원</Text>
-      <Text style={styles.text}>수입: {income}원</Text>
+      <Text style={styles.headerText}>남은돈: {left.toLocaleString('ko-KR')}원</Text>
+      <Text style={styles.text}>지출: {spending.toLocaleString('ko-KR')}원</Text>
+      <Text style={styles.text}>수입: {income.toLocaleString('ko-KR')}원</Text>
     </View>
   )
 }

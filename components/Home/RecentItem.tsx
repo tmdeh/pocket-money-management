@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { HistoryType } from "../../redux/slice/history";
 
 interface RecentProps {
-  price: number;
+  price: string;
   icon: JSX.Element;
   label: string;
   type: HistoryType
