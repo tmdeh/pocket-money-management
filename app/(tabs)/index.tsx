@@ -21,11 +21,11 @@ export default function HomeScreen(): JSX.Element {
   const dispatch = useDispatch<AppDispatch>()
 
   const historyData: History = useSelector((state: RootState) => {
+    console.log(state.history)
     return state.history
   })
 
   async function checkLocalSorage() {
-
     const keys = await AsyncStorage.getAllKeys()
     if (!(keys.find(v => v === "history"))) {
       const initialState = {

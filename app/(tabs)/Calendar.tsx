@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { PlusButton, SubtractButton } from "../../components";
 import Calender from "../../components/Calender/Calender";
+import Info from "../../components/Calender/Info";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const style = StyleSheet.create({
   container: {
@@ -10,11 +12,16 @@ const style = StyleSheet.create({
 });
 
 export default function CalenderScreen(): JSX.Element {
+
+
+  const [seletDate, setSelectDate] = useState<string>("");
+
   return (
-    <View style={style.container}>
+    <SafeAreaView style={style.container}>
       <Calender />
+      <Info />
       <PlusButton />
       <SubtractButton />
-    </View>
+    </SafeAreaView>
   );
 }
