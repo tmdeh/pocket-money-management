@@ -21,7 +21,6 @@ export default function HomeScreen(): JSX.Element {
   const dispatch = useDispatch<AppDispatch>()
 
   const historyData: History = useSelector((state: RootState) => {
-    console.log(state.history)
     return state.history
   })
 

@@ -18,7 +18,7 @@ export default function CalenderScreen(): JSX.Element {
 
   return (
     <SafeAreaView style={style.container}>
-      <Calender />
+      <Calender selectDate={seletDate} setSelectDate={setSelectDate} />
       <Info />
       <PlusButton />
       <SubtractButton />
