@@ -1,7 +1,7 @@
 import React from "react";
 import { Platform } from 'react-native';
 import { StyleSheet, Text, View } from "react-native";
-import { HistoryType } from "../../redux/slice/history";
+import { HistoryType } from "../redux/slice/history";
 
 interface RecentProps {
   price: string;

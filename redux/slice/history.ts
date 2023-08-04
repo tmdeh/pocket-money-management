@@ -54,10 +54,15 @@ export const historyAsyncAdd = createAsyncThunk(
       }
       let store: History = JSON.parse(historyString);
 
-      const date = new Date()
+  
 
+      const curr = new Date()
+      const utc = curr.getTime() + (curr.getTimezoneOffset() * 60 * 1000);
+      const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+      const kr_curr = new Date(utc + KR_TIME_DIFF);
+      
 
-      const dateString = `${date.getFullYear()}-${leftPad(date.getMonth() + 1)}-${leftPad(date.getDay())}`
+      const dateString = `${kr_curr.getFullYear()}-${leftPad(kr_curr.getMonth() + 1)}-${leftPad(kr_curr.getDay() - 1)}`
 
 
       const item: HistoryItem = {

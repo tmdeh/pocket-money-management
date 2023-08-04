@@ -5,7 +5,7 @@ import { Calendar, DateData } from "react-native-calendars"
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.5
+    flex: 0.8
   }
 })
 
