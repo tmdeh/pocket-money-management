@@ -7,6 +7,7 @@ import Recent from "../../components/Recent";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { HistoryItem } from "../../redux/slice/history";
+import { getToday } from "../../module/date";
 
 const style = StyleSheet.create({
   container: {
@@ -23,6 +24,9 @@ export default function CalenderScreen(): JSX.Element {
   const [seletDate, setSelectDate] = useState<string>("");  
   const [list , setList] = useState<HistoryItem[]>(historyList)
 
+  useEffect(() => {
+    setSelectDate(getToday());
+  }, [])
 
   useEffect(() => {
     setList(historyList.filter((history) => history.date === seletDate));

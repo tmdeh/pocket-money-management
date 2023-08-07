@@ -1,5 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getToday } from "../../module/date";
 
 
 export enum HistoryType {
@@ -35,14 +36,6 @@ export interface HistoryItem {
 }
 
 
-      
-function leftPad(value: number) {
-  if (value >= 10) {
-      return value;
-  }
-
-  return `0${value}`;
-}
 
 export const historyAsyncAdd = createAsyncThunk(
   'history/add',
@@ -53,16 +46,8 @@ export const historyAsyncAdd = createAsyncThunk(
         throw new Error("local stroage에 history 없습니다.");
       }
       let store: History = JSON.parse(historyString);
-
-  
-
-      const curr = new Date()
-      const utc = curr.getTime() + (curr.getTimezoneOffset() * 60 * 1000);
-      const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
-      const kr_curr = new Date(utc + KR_TIME_DIFF);
       
-
-      const dateString = `${kr_curr.getFullYear()}-${leftPad(kr_curr.getMonth() + 1)}-${leftPad(kr_curr.getDate())}`;
+      const dateString = getToday()
 
       const item: HistoryItem = {
         category,
