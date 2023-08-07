@@ -62,8 +62,7 @@ export const historyAsyncAdd = createAsyncThunk(
       const kr_curr = new Date(utc + KR_TIME_DIFF);
       
 
-      const dateString = `${kr_curr.getFullYear()}-${leftPad(kr_curr.getMonth() + 1)}-${leftPad(kr_curr.getDay() - 1)}`
-
+      const dateString = `${kr_curr.getFullYear()}-${leftPad(kr_curr.getMonth() + 1)}-${leftPad(kr_curr.getDate())}`;
 
       const item: HistoryItem = {
         category,

@@ -25,8 +25,8 @@ export default function CalenderScreen(): JSX.Element {
 
 
   useEffect(() => {
-    setList(historyList.filter((history) =>history.date === seletDate));
-  }, [seletDate])
+    setList(historyList.filter((history) => history.date === seletDate));
+  }, [seletDate, historyList])
   
 
   return (
