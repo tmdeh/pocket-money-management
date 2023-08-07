@@ -19,7 +19,7 @@ export default function TabLayout() {
     const today = new Date();
     let output = "";
     output += today.getFullYear() + "년 ";
-    output += today.getMonth() + "월 ";
+    output += today.getMonth() + 1 + "월 ";
     output += today.getDate() + "일 ";
     return output;
   }
@@ -28,14 +28,20 @@ export default function TabLayout() {
   function setOption(iconName: any) {
     switch (iconName) {
       case "home":
-      case "calendar":
       case "shoppingcart":
         return {
           tabBarIcon: ({ color, size }: IconProps) => (
             <AntDesign name={iconName} size={size} color={color} />
           ),
-          headerTitle: now,
+          headerTitle: now
         };
+      case "calendar":
+        return {
+          tabBarIcon: ({ color, size }: IconProps) => (
+            <AntDesign name={iconName} size={size} color={color} />
+          ),
+          headerShown: false
+        }
       case "stats-chart-outline":
         return {
           tabBarIcon: ({ color, size }: IconProps) => (

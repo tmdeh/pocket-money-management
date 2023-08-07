@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect } from "react";
+import React from "react";
 import { useColorScheme } from "react-native";
 import {
   DarkTheme,

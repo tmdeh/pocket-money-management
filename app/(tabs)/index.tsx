@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import MoneyStats from "../../components/Home/MoneyStats";
-import Recent from "../../components/Home/Recent";
+import Recent from "../../components/Recent";
 import { PlusButton, SubtractButton } from "../../components";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
@@ -25,7 +25,6 @@ export default function HomeScreen(): JSX.Element {
   })
 
   async function checkLocalSorage() {
-
     const keys = await AsyncStorage.getAllKeys()
     if (!(keys.find(v => v === "history"))) {
       const initialState = {
