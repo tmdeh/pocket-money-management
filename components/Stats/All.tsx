@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Platform } from "react-native";
 import { HistoryItem } from "../../redux/slice/history";
 import { PieChart } from "react-native-chart-kit";
 
@@ -7,6 +7,26 @@ const styles = StyleSheet.create({
   contianer: {
     flex: 1,
     backgroundColor: "white"    
+  },
+  pieContainer: {
+    alignItems: "center",
+    ...Platform.select({
+      ios: {
+          shadowColor: 'black',
+          shadowOffset: {
+          width: 0,
+          height: 10,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3,
+      },
+      android: {
+        elevation: 10,
+      },
+    })
+  },
+  pieChart: {
+
   }
 });
 
@@ -14,43 +34,6 @@ interface AllProps {
   histories: HistoryItem[]
 }
 
-const data = [
-  {
-    name: "Seoul",
-    population: 215,
-    color: "rgba(131, 167, 234, 1)",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15
-  },
-  {
-    name: "Toronto",
-    population: 280,
-    color: "#F00",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15
-  },
-  {
-    name: "Beijing",
-    population: 527,
-    color: "red",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15
-  },
-  {
-    name: "New York",
-    population: 853,
-    color: "#ffffff",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15
-  },
-  {
-    name: "Moscow",
-    population: 1192,
-    color: "rgb(0, 0, 255)",
-    legendFontColor: "#7F7F7F",
-    legendFontSize: 15
-  }
-];
 
 interface StatsData {
   name: string,
@@ -87,7 +70,7 @@ export default function All({histories}: AllProps) {
         name,
         population: v as number,
         color: "#" + Math.round(Math.random() * 0xffffff).toString(16),
-        legendFontColor: "#7F7F7F",
+        legendFontColor: "black",
         legendFontSize: 15,
       }
 
@@ -98,24 +81,20 @@ export default function All({histories}: AllProps) {
 
   return(
     <View style={styles.contianer}>
-      <PieChart 
-        width={300}
-        height={300}
-        chartConfig={{
-          backgroundGradientFrom: "#1E2923",
-          backgroundGradientFromOpacity: 0,
-          backgroundGradientTo: "#08130D",
-          backgroundGradientToOpacity: 0.5,
-          color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-          strokeWidth: 2, // optional, default 3
-          barPercentage: 0.5,
-          useShadowColorFromDataset: false // optional
-        }}
-        data={stats}
-        accessor={"population"}
-        backgroundColor={"transparent"}
-        paddingLeft="0"
-      />
+      <View style={styles.pieContainer}>
+        <PieChart 
+          width={350}
+          height={200}
+          chartConfig={{
+            color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
+          }}
+          data={stats}
+          accessor={"population"}
+          backgroundColor={"transparent"}
+          paddingLeft="0" 
+          style={styles.pieChart}
+        />
+      </View>
     </View>
   )
 }
