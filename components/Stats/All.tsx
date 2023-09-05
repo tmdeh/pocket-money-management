@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Platform } from "react-native";
 import { HistoryItem } from "../../redux/slice/history";
 import { PieChart } from "react-native-chart-kit";
+import tinycolor from "tinycolor2";
 
 const styles = StyleSheet.create({
   contianer: {
@@ -10,24 +11,7 @@ const styles = StyleSheet.create({
   },
   pieContainer: {
     alignItems: "center",
-    ...Platform.select({
-      ios: {
-          shadowColor: 'black',
-          shadowOffset: {
-          width: 0,
-          height: 10,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 10,
-      },
-    })
   },
-  pieChart: {
-
-  }
 });
 
 interface AllProps {
@@ -50,7 +34,6 @@ export default function All({histories}: AllProps) {
   const [stats, setStats] = useState<StatsData[]>([]);
 
   useEffect(() => {
-    
     let count: any = {}
 
     for(let history of histories) {
@@ -63,16 +46,22 @@ export default function All({histories}: AllProps) {
       }
     }
     let historyStats = []
-    for(let [key, v] of Object.entries(count)) {
-      const name = category[parseInt(key)]
 
+    // 색 명도 값
+    let colorBrighten = 10;
+
+    for(let [key, v] of Object.entries(count)) {
+
+      const name = category[parseInt(key)]      
       const newStats: StatsData = {
         name,
         population: v as number,
-        color: "#" + Math.round(Math.random() * 0xffffff).toString(16),
+        color: tinycolor("#fff").darken(colorBrighten).toString(),
         legendFontColor: "black",
         legendFontSize: 15,
       }
+
+      colorBrighten += 15
 
       historyStats.push(newStats)
     }
@@ -92,7 +81,6 @@ export default function All({histories}: AllProps) {
           accessor={"population"}
           backgroundColor={"transparent"}
           paddingLeft="0" 
-          style={styles.pieChart}
         />
       </View>
     </View>
