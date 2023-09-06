@@ -3,14 +3,20 @@ import { StyleSheet, Text, View, Platform } from "react-native";
 import { HistoryItem } from "../../redux/slice/history";
 import { PieChart } from "react-native-chart-kit";
 import tinycolor from "tinycolor2";
+import Pie, { StatsData } from "./PieChart";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
+
+
+// TODO
+// 1. 수입 지출 분류
+// 2. 파이차트, 선 차트 컴포넌트로 분류
+// 3. 카테고리를 context로 저장
 const styles = StyleSheet.create({
   contianer: {
     flex: 1,
     backgroundColor: "white"    
-  },
-  pieContainer: {
-    alignItems: "center",
   },
 });
 
@@ -18,71 +24,51 @@ interface AllProps {
   histories: HistoryItem[]
 }
 
-
-interface StatsData {
-  name: string,
-  population: number,
-  color: string,
-  legendFontColor: string,
-  legendFontSize: number
+interface IpieStats {
+  income: StatsData[];
+  spending: StatsData[];
 }
 
-const category = ["월급", "용돈", "보너스", "기타"]
 
 export default function All({histories}: AllProps) {
 
-  const [stats, setStats] = useState<StatsData[]>([]);
+  const categoryIncome = useSelector((state: RootState) => {
+    return state.categoryIncome.category
+  })
+  
+  const categorySpending = useSelector((state: RootState) => {
+    return state.categorySpending.category
+  })
+
+
+  const [pieStats, setPieStats] = useState<IpieStats>();
+
+  
+  // 통계 데이터로 변경
+  async function init(category: string[]) {
+    histories.forEach(v => {
+      // 0: 수입, 1: 지출
+      if(v.type === 0) {
+
+      } else {
+
+      }
+    })
+  }
 
   useEffect(() => {
-    let count: any = {}
-
-    for(let history of histories) {
-      let { category } = history;
-
-      if(count[category] === undefined) { // 카테고리가 존재하지 않을 경우
-        count[category] = 1;
-      } else {
-        count[category]++;
-      }
-    }
-    let historyStats = []
-
-    // 색 명도 값
-    let colorBrighten = 10;
-
-    for(let [key, v] of Object.entries(count)) {
-
-      const name = category[parseInt(key)]      
-      const newStats: StatsData = {
-        name,
-        population: v as number,
-        color: tinycolor("#fff").darken(colorBrighten).toString(),
-        legendFontColor: "black",
-        legendFontSize: 15,
-      }
-
-      colorBrighten += 15
-
-      historyStats.push(newStats)
-    }
-    setStats(historyStats);
+    Promise.all([init(categoryIncome), init(categorySpending)])
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.error(error)
+    })
   }, [histories])
 
   return(
     <View style={styles.contianer}>
-      <View style={styles.pieContainer}>
-        <PieChart 
-          width={350}
-          height={200}
-          chartConfig={{
-            color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-          }}
-          data={stats}
-          accessor={"population"}
-          backgroundColor={"transparent"}
-          paddingLeft="0" 
-        />
-      </View>
+      {/* <Pie data={} color="#fff"/> */}
     </View>
   )
 }
