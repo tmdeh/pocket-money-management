@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Platform } from "react-native";
 import { HistoryItem } from "../../redux/slice/history";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import Pie from "./PieChart";
 
 
 
@@ -18,9 +19,11 @@ interface AllProps {
 }
 
 interface IpieStats {
-  income: [string: string],
-  spending: [string: string]
+  income: {},
+  spending: {}
 }
+
+
 
 
 export default function All({histories}: AllProps) {
@@ -36,7 +39,7 @@ export default function All({histories}: AllProps) {
 
 
 
-  const [pieStats, setPieStats] = useState<IpieStats>()
+  const [categoryCount, setCategoryCount] = useState<IpieStats>()
 
   async function initPieData() {
     const initIncome = async() => {
@@ -66,15 +69,19 @@ export default function All({histories}: AllProps) {
       }
     })
 
-    setPieStats(count)
+    setCategoryCount(count)
   }
+
   useEffect(() => {
     initPieData()
   }, [histories])
 
   return(
     <View style={styles.contianer}>
-      {/* <Pie data={} color="#fff"/> */}
+      <View>
+        <Pie propData={categoryCount?.income} color="#fff"/>
+        <Pie propData={categoryCount?.spending} color="#fff" />
+      </View>
     </View>
   )
 }

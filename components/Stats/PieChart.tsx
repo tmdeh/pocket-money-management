@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { PieChart } from "react-native-chart-kit";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import tinycolor from "tinycolor2";
 
 const styles = StyleSheet.create({
   container: {
@@ -10,8 +9,8 @@ const styles = StyleSheet.create({
   },
 });
 
-
-export interface StatsData {
+// 라이브러리 활용을 위한 데이터
+export interface PieData {
   name: string,
   population: number,
   color: string,
@@ -20,13 +19,45 @@ export interface StatsData {
 }
 
 
+// 정리된 데이터
+export interface PieValue {
+
+}
+
 interface pieProps {
-  data: StatsData[],
+  propData?: Object,
   color: string
 }
 
-export default function Pie({data, color}: pieProps) {
+export default function Pie({propData, color}: pieProps) {
 
+  const [data, setData] = useState<Array<any>>([]);
+
+  useEffect(() => {
+    if(!propData) {
+      return;
+    }
+    let result = []
+    let colorBrighten = 15
+    for(let [category, count] of Object.entries(propData)) {
+      if(count === 0) {
+        continue;
+      }
+      result.push({
+        name: category,
+        population: count,
+        color: tinycolor(color).darken(colorBrighten).toString(),
+        lengendFontColor: "black",
+        lengendFontSize: 15
+      })
+      colorBrighten += 15
+    } 
+
+    setData(result);
+
+  }, [propData])
+
+  
 
   return (
     <View style={styles.container}>
