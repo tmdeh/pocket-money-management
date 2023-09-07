@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View, Platform } from "react-native";
 import { HistoryItem } from "../../redux/slice/history";
-import { PieChart } from "react-native-chart-kit";
-import tinycolor from "tinycolor2";
-import Pie, { StatsData } from "./PieChart";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
 
 
-// TODO
-// 1. 수입 지출 분류
-// 2. 파이차트, 선 차트 컴포넌트로 분류
-// 3. 카테고리를 context로 저장
 const styles = StyleSheet.create({
   contianer: {
     flex: 1,
@@ -25,8 +18,8 @@ interface AllProps {
 }
 
 interface IpieStats {
-  income: StatsData[];
-  spending: StatsData[];
+  income: [string: string],
+  spending: [string: string]
 }
 
 
@@ -41,29 +34,42 @@ export default function All({histories}: AllProps) {
   })
 
 
-  const [pieStats, setPieStats] = useState<IpieStats>();
 
-  
-  // 통계 데이터로 변경
-  async function init(category: string[]) {
+
+  const [pieStats, setPieStats] = useState<IpieStats>()
+
+  async function initPieData() {
+    const initIncome = async() => {
+      let income: any = {}
+      categoryIncome.forEach(v => {
+        income[v] = 0
+      })
+      return income
+    }
+    const initSpending = async() => {
+      let spending: any = {}
+      categorySpending.forEach(v => {
+        spending[v] = 0
+      })
+      return spending
+    }
+
+    let count = await Promise.all([initIncome(), initSpending()]).then(r => {
+      return {income: r[0], spending: r[1]}
+    })
+    
     histories.forEach(v => {
-      // 0: 수입, 1: 지출
       if(v.type === 0) {
-
+        count.income[categoryIncome[v.category]] += 1
       } else {
-
+        count.spending[categorySpending[v.category]] += 1
       }
     })
-  }
 
+    setPieStats(count)
+  }
   useEffect(() => {
-    Promise.all([init(categoryIncome), init(categorySpending)])
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((error) => {
-      console.error(error)
-    })
+    initPieData()
   }, [histories])
 
   return(
