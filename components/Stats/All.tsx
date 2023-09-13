@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View, Platform } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { HistoryItem } from "../../redux/slice/history";
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
 import Pie from "./PieChart";
+import { ScrollView } from "react-native-gesture-handler";
 
 
 
@@ -12,10 +11,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "white"    
   },
+  label: {
+    fontSize: 20,
+    textAlign: "center",
+    fontWeight: "bold",
+  },
+  pieContainer: {
+    margin: 5,
+  }
 });
 
 interface AllProps {
-  histories: HistoryItem[]
+  histories: HistoryItem[],
+  category: string[][]
 }
 
 interface IpieStats {
@@ -26,19 +34,10 @@ interface IpieStats {
 
 
 
-export default function All({histories}: AllProps) {
-
-  const categoryIncome = useSelector((state: RootState) => {
-    return state.categoryIncome.category
-  })
-  
-  const categorySpending = useSelector((state: RootState) => {
-    return state.categorySpending.category
-  })
+export default function All({histories, category}: AllProps) {
 
 
-
-
+  const [categoryIncome, categorySpending] = category;
   const [categoryCount, setCategoryCount] = useState<IpieStats>()
 
   async function initPieData() {
@@ -77,11 +76,16 @@ export default function All({histories}: AllProps) {
   }, [histories])
 
   return(
-    <View style={styles.contianer}>
-      <View>
+    <ScrollView style={styles.contianer}>
+      <View style={styles.pieContainer}>
+        <Text style={styles.label}>수입</Text>
         <Pie propData={categoryCount?.income} color="#fff"/>
+
+      </View>
+      <View style={styles.pieContainer}>
+        <Text style={styles.label}>지출</Text>
         <Pie propData={categoryCount?.spending} color="#fff" />
       </View>
-    </View>
+    </ScrollView>
   )
 }

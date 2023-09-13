@@ -14,7 +14,7 @@ export const categoryIncome = createSlice({
 export const categorySpending = createSlice({
   name: "category_spending",
   initialState: {
-    category: ["식비", "의료", "교통", "자기계발", "생필품", "기타"],
+    category: ["식비", "의료", "교통", "자기계발", "생필품", "저축", "기타"],
   },
   reducers: {}
 })

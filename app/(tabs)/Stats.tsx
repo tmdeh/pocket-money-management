@@ -19,8 +19,16 @@ export enum StatsTab {
   WEEKS = 1,
   MONTH = 2
 }
-
+// TODO: prop 데이터 조정
 export default function StatsScreens(): JSX.Element {
+
+  const categoryIncome = useSelector((state: RootState) => {
+    return state.categoryIncome.category
+  })
+  
+  const categorySpending = useSelector((state: RootState) => {
+    return state.categorySpending.category
+  })
 
   const [selectTab, setSelectTab] = useState<StatsTab>(StatsTab.ALL);
   const history = useSelector((state: RootState) => state.history.history)
@@ -31,7 +39,7 @@ export default function StatsScreens(): JSX.Element {
     else if(selectTab === StatsTab.MONTH)
       return <Month />
     else 
-      return <All histories={history} />
+      return <All histories={history} category={[categoryIncome, categorySpending]} />
   }, [selectTab])
 
   return (
