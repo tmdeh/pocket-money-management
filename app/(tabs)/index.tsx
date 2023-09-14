@@ -41,6 +41,7 @@ export default function HomeScreen(): JSX.Element {
   }
 
   useEffect(() => {
+    // AsyncStorage.clear();
     checkLocalSorage()
   }, [])
 
