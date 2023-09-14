@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { router } from 'expo-router';
 import Button from "../Button";
@@ -72,6 +72,11 @@ export default function AddHistory({icons, type}: AddIncomeProps) {
     return state.userInput;
   })
 
+  useEffect(() => {
+    dispatch(userInputSlice.actions.clear());
+  }, [])
+
+
   function changePrice(v: string) {
     try {
       dispatch(userInputSlice.actions.update({price: parseInt(v)}))
@@ -79,13 +84,14 @@ export default function AddHistory({icons, type}: AddIncomeProps) {
       console.log(error)
     }
   } 
+
   async function onClickConfirm() {
     try {
       const { price, category, memo } = userInput;
       if(price === 0) {
         return;
       }
-      dispatch(historyAsyncAdd({category, price, memo, type: type}));
+      dispatch(historyAsyncAdd({category, price, memo, type}));
       dispatch(userInputSlice.actions.clear());
     } catch (error) {
       console.log(error)
