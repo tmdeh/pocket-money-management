@@ -83,10 +83,7 @@ export const historyAsyncAdd = createAsyncThunk(
 
         monthDataArray[m] = monthData;
       }
-
-      console.log(monthDataArray)
-
-
+      // 해당 달에 데이터 추가
       monthData.history.push({
         category,
         price,
@@ -94,9 +91,9 @@ export const historyAsyncAdd = createAsyncThunk(
         type,
       })
 
-
+      // 로컬 스토리지에 데이터 변경
       await AsyncStorage.setItem(yearKey, JSON.stringify(monthDataArray));
-      console.log(await AsyncStorage.getItem(yearKey));
+
     } catch (error) {
       console.log(error)
     }
