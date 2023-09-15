@@ -15,37 +15,41 @@ export enum HistoryStatus {
 }
 
 
-
-
-// 인덱스로 월 표시
-interface IMonthRecord {
-  month: number,
-  income: number,
-  spending: number,
-  day: Array<IDayRecord>
-}
-
-// 인덱스로 날짜 표기
-interface IDayRecord {
-  category: number,
-  price: number,
-  type: number,
-}
-
 interface Input {
   category: number,
   price: number,
   memo: string,
-  type: number
+  type: number,
 }
 
+interface ILoad {
+  year: number,
+  month: number
+}
+
+export interface IMonthData {
+  state: HistoryStatus,
+  income: number,
+  spending: number,
+  left: number,
+  month: string,
+  history: Array<Item>
+}
+
+export interface Item {
+  category: number,
+  price: number,
+  memo: string,
+  type: number,
+  day: string
+}
 
 // 기록 추가
 export const historyAsyncAdd = createAsyncThunk(
   'history/add',
   async ({category, memo, price, type}: Input) => { 
 
-    const [year, month ] = getNow().split('-');
+    const [year, month, day] = getNow().split('-');
     const yearKey = `history_${year}`;
 
     try {
@@ -64,36 +68,46 @@ export const historyAsyncAdd = createAsyncThunk(
         throw new Error(`${year}이 없습니다.`);
       }
       // json 형태로 변환
-      let monthDataArray = JSON.parse(monthDataString);
+      let monthDataArray: IMonthData[] = JSON.parse(monthDataString);
 
       let m = parseInt(month)
 
       // 해당월 찾기
-      let monthData = monthDataArray[m];
+      let monthData: IMonthData = monthDataArray[m];
 
       
       // 해당하는 월이 없을 경우 월 데이터 생성
       if(monthData === undefined) {
         monthData = {
+          state: HistoryStatus.LOADING,
           month,
           income: 0,
           spending: 0,
+          left: 0,
           history: []
         };
-
         monthDataArray[m] = monthData;
       }
+      
+      // 소비, 지출 결과 처리
+      if(type === 0) {
+        monthData.left += price;
+        monthData.income += price;
+      } else {
+        monthData.left -= price;
+        monthData.spending += price;
+      }
+
       // 해당 달에 데이터 추가
       monthData.history.push({
         category,
         price,
         memo,
         type,
+        day
       })
-
       // 로컬 스토리지에 데이터 변경
       await AsyncStorage.setItem(yearKey, JSON.stringify(monthDataArray));
-
     } catch (error) {
       console.log(error)
     }
@@ -104,7 +118,18 @@ export const historyAsyncAdd = createAsyncThunk(
 // 기록 불러오기
 export const historyAsyncLoad = createAsyncThunk(
   'history/load',
-  async () => {
+  async ({year, month}: ILoad) => {
+    // 해당 년의 데이터 불러오기
+    let yearDataString = await AsyncStorage.getItem(`history_${year}`);
+
+    if(yearDataString === null) {
+      throw new Error(`${year}년의 데이터가 없습니다.`);
+    }
+
+    // json으로 파싱
+    let yearData = JSON.parse(yearDataString);
+    // 해당 달 찾기
+    return yearData[month];
   }
 )
 
@@ -112,6 +137,11 @@ export const historySlice = createSlice({
   name: "history",
   initialState: {
     state: HistoryStatus.LOADING,
+    income: 0,
+    spending: 0,
+    left: 0,
+    month: "",
+    history: []
   },
 
   reducers: {},
@@ -130,6 +160,12 @@ export const historySlice = createSlice({
     })
 
     builder.addCase(historyAsyncLoad.fulfilled, (state, action) => {
+      try {
+        state = action.payload    
+        return state;
+      } catch (error) {
+        console.error(error)
+      }
       state.state = HistoryStatus.COMPLETE;
     })
   }

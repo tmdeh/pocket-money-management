@@ -3,8 +3,11 @@ import { StyleSheet, View } from "react-native";
 import MoneyStats from "../../components/Home/MoneyStats";
 import { PlusButton, SubtractButton } from "../../components";
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { AppDispatch, RootState } from "../../redux/store";
 import Recent from "../../components/Recent";
+import { useDispatch } from "react-redux";
+import { historyAsyncLoad } from "../../redux/slice/history";
+import { getNow } from "../../module/date";
 
 const style = StyleSheet.create({
   container: {
@@ -18,15 +21,26 @@ export default function HomeScreen(): JSX.Element {
     return state.history
   })
 
+  const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
-    // console.log("historyData", historyData)
+
+    const [y, m] = getNow().split('-');
+    const year = parseInt(y);
+    const month = parseInt(m);
+    dispatch(historyAsyncLoad({year, month}));
+  }, [])
+
+
+
+  useEffect(() => {
+    console.log(historyData)
   }, [historyData])
 
   return (
     <View style={style.container}>
-      <MoneyStats left={0} income={0} spending={0} />
-      <Recent list={[]} />
+      <MoneyStats left={historyData.left} income={historyData.income} spending={historyData.spending} />
+      <Recent list={historyData.history} />
       <PlusButton />
       <SubtractButton />
     </View>
