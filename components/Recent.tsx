@@ -1,14 +1,20 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { HistoryItem } from "../redux/slice/history";
+import { IMonthDataItem } from "../redux/slice/history";
 import RecentItem from "./RecentItem";
 import AddIncomeIcon from "../assets/icon/Income";
 import SependingIcon from "../assets/icon/Spending";
 
 interface RecentProp {
-  list: HistoryItem[];
+  list: IMonthDataItem[];
 }
+const styles = StyleSheet.create({
+  container: {
+    flex: 0.6,
+    width: "100%",
+  },
+});
 
 export default function Recent({ list }: RecentProp) {
 
@@ -39,9 +45,3 @@ export default function Recent({ list }: RecentProp) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 0.6,
-    width: "100%",
-  },
-});
