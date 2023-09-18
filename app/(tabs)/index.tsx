@@ -7,7 +7,6 @@ import { AppDispatch, RootState } from "../../redux/store";
 import Recent from "../../components/Recent";
 import { useDispatch } from "react-redux";
 import { historyAsyncLoad } from "../../redux/slice/history";
-import { getNow } from "../../module/date";
 
 const style = StyleSheet.create({
   container: {
@@ -22,21 +21,10 @@ export default function HomeScreen(): JSX.Element {
   })
 
   const dispatch = useDispatch<AppDispatch>()
-
   useEffect(() => {
-
-    const [y, m] = getNow().split('-');
-    const year = parseInt(y);
-    const month = parseInt(m);
-    dispatch(historyAsyncLoad({year, month}));
+    dispatch(historyAsyncLoad({}));
   }, [])
-
-
-
-  useEffect(() => {
-    console.log(historyData)
-  }, [historyData])
-
+  
   return (
     <View style={style.container}>
       <MoneyStats left={historyData.left} income={historyData.income} spending={historyData.spending} />

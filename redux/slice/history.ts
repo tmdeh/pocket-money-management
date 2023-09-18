@@ -23,8 +23,8 @@ interface Input {
 }
 
 interface ILoad {
-  year: number,
-  month: number
+  year?: number,
+  month?: number
 }
 
 export interface IMonthData {
@@ -33,15 +33,15 @@ export interface IMonthData {
   spending: number,
   left: number,
   month: string,
-  history: Array<Item>
+  history: Array<IMonthDataItem>
 }
 
-export interface Item {
+export interface IMonthDataItem {
   category: number,
   price: number,
   memo: string,
   type: number,
-  day: string
+  date: string
 }
 
 // 기록 추가
@@ -104,12 +104,16 @@ export const historyAsyncAdd = createAsyncThunk(
         price,
         memo,
         type,
-        day
+        date: `${year}-${month}-${day}`
       })
       // 로컬 스토리지에 데이터 변경
+
       await AsyncStorage.setItem(yearKey, JSON.stringify(monthDataArray));
+
+      return monthData;
+
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 );
@@ -119,6 +123,13 @@ export const historyAsyncAdd = createAsyncThunk(
 export const historyAsyncLoad = createAsyncThunk(
   'history/load',
   async ({year, month}: ILoad) => {
+
+    if(year === undefined || month === undefined) {
+      let date = new Date();
+      year = date.getFullYear();
+      month = date.getMonth() + 1
+    } 
+
     // 해당 년의 데이터 불러오기
     let yearDataString = await AsyncStorage.getItem(`history_${year}`);
 
@@ -127,7 +138,7 @@ export const historyAsyncLoad = createAsyncThunk(
     }
 
     // json으로 파싱
-    let yearData = JSON.parse(yearDataString);
+    let yearData:IMonthData[] = JSON.parse(yearDataString);
     // 해당 달 찾기
     return yearData[month];
   }
@@ -141,7 +152,7 @@ export const historySlice = createSlice({
     spending: 0,
     left: 0,
     month: "",
-    history: []
+    history: new Array<IMonthDataItem>
   },
 
   reducers: {},
@@ -151,9 +162,20 @@ export const historySlice = createSlice({
     })
     
     builder.addCase(historyAsyncAdd.fulfilled, (state, action) => {
-      state.state = HistoryStatus.COMPLETE;
-    })
+      state.state = HistoryStatus.COMPLETE
+      // undefind 체크
+      if(action.payload === undefined) {
+        throw new Error("추가한 데이터가 없습니다.");
+      }
+      const { history, income, left, month, spending } = action.payload;
 
+      state.history = history;
+      state.income = income;
+      state.left = left;
+      state.month = month;
+      state.spending = spending;
+      return state;
+    }) 
 
     builder.addCase(historyAsyncLoad.pending, (state, action) => {
       state.state = HistoryStatus.LOADING;
@@ -161,12 +183,12 @@ export const historySlice = createSlice({
 
     builder.addCase(historyAsyncLoad.fulfilled, (state, action) => {
       try {
-        state = action.payload    
-        return state;
+        state = action.payload
+        state.state = HistoryStatus.COMPLETE;
+        return state
       } catch (error) {
         console.error(error)
       }
-      state.state = HistoryStatus.COMPLETE;
     })
   }
 })
