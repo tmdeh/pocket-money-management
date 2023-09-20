@@ -144,6 +144,29 @@ export const historyAsyncLoad = createAsyncThunk(
   }
 )
 
+export const historyAsyncLoadAll = createAsyncThunk(
+  'history/load/all',
+  async () => {
+
+    const keys = await AsyncStorage.getAllKeys();
+    
+
+    for(let key of keys) {
+      // 해당 년의 데이터 불러오기
+      let yearDataString = await AsyncStorage.getItem(key);
+  
+      if(yearDataString === null) {
+        throw new Error(`${key}의 데이터가 없습니다.`);
+      }
+  
+      // json으로 파싱
+      let yearData:IMonthData[] = JSON.parse(yearDataString);
+      // 해당 달 찾기
+    }
+    console.log(keys)
+  }
+)
+
 export const historySlice = createSlice({
   name: "history",
   initialState: {
@@ -176,6 +199,14 @@ export const historySlice = createSlice({
       state.spending = spending;
       return state;
     }) 
+
+    builder.addCase(historyAsyncLoadAll.pending, (state, action) => {
+      state.state = HistoryStatus.LOADING;
+    })
+
+    builder.addCase(historyAsyncLoadAll.fulfilled, (state, action) => {
+        state.state = HistoryStatus.COMPLETE;
+    })
 
     builder.addCase(historyAsyncLoad.pending, (state, action) => {
       state.state = HistoryStatus.LOADING;
