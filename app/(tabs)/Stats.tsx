@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
   },
 });
 
-// TODO: prop 데이터 조정
 export default function StatsScreens(): JSX.Element {
 
   return (
