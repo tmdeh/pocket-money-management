@@ -17,20 +17,24 @@ const style = StyleSheet.create({
 
 export default function CalenderScreen(): JSX.Element {
 
-  const historyList = useSelector((state: RootState) => {
-    return state.history.history
+  
+  
+  const history = useSelector((state: RootState) => {
+    return state.history
   })
-  const [list , setList] = useState<IMonthDataItem[]>(historyList)
+  const [list , setList] = useState<IMonthDataItem[]>([])
   const [seletDate, setSelectDate] = useState<string>("");  
-
-
+  
   useEffect(() => {
     setSelectDate(getNow());
   }, [])
 
   useEffect(() => {
-    setList(historyList.filter((history: IMonthDataItem) => history.date === seletDate));
-  }, [seletDate, historyList])
+    setList(history.history.filter((v: IMonthDataItem) => {
+      const selectedDay = parseInt(seletDate.split("-")[2]);
+      return selectedDay === v.day;
+    }))
+  }, [seletDate, history])
   
 
   return (

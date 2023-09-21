@@ -7,6 +7,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 import { change } from "../../redux/slice/header";
+import { historyAsyncLoad } from "../../redux/slice/history";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 interface IconProps {
@@ -99,7 +101,6 @@ export default function TabLayout() {
         };
     }
   }
-
 
   return(
     <Tabs screenOptions={{tabBarShowLabel: false, tabBarActiveTintColor: "black"}} sceneContainerStyle={{backgroundColor: "white"}}>

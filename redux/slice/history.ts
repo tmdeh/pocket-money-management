@@ -23,8 +23,8 @@ interface Input {
 }
 
 interface ILoad {
-  year?: number,
-  month?: number
+  year?: number | string,
+  month?: number | string
 }
 
 export interface IMonthData {
@@ -32,7 +32,8 @@ export interface IMonthData {
   income: number,
   spending: number,
   left: number,
-  month: string,
+  month: number,
+  year: number,
   history: Array<IMonthDataItem>
 }
 
@@ -41,7 +42,7 @@ export interface IMonthDataItem {
   price: number,
   memo: string,
   type: number,
-  date: string
+  day: number
 }
 
 // 기록 추가
@@ -80,7 +81,8 @@ export const historyAsyncAdd = createAsyncThunk(
       if(monthData === undefined) {
         monthData = {
           state: HistoryStatus.LOADING,
-          month,
+          month: m,
+          year: parseInt(year),
           income: 0,
           spending: 0,
           left: 0,
@@ -104,7 +106,7 @@ export const historyAsyncAdd = createAsyncThunk(
         price,
         memo,
         type,
-        date: `${year}-${month}-${day}`
+        day: parseInt(day)
       })
       // 로컬 스토리지에 데이터 변경
 
@@ -123,12 +125,19 @@ export const historyAsyncAdd = createAsyncThunk(
 export const historyAsyncLoad = createAsyncThunk(
   'history/load',
   async ({year, month}: ILoad) => {
-
     if(year === undefined || month === undefined) {
       let date = new Date();
       year = date.getFullYear();
       month = date.getMonth() + 1
     } 
+
+    if(typeof year === "string") {
+      year = parseInt(year)
+    }
+
+    if(typeof month === "string") {
+      month = parseInt(month)
+    }
 
     // 해당 년의 데이터 불러오기
     let yearDataString = await AsyncStorage.getItem(`history_${year}`);
@@ -144,40 +153,19 @@ export const historyAsyncLoad = createAsyncThunk(
   }
 )
 
-export const historyAsyncLoadAll = createAsyncThunk(
-  'history/load/all',
-  async () => {
-
-    const keys = await AsyncStorage.getAllKeys();
-    
-
-    for(let key of keys) {
-      // 해당 년의 데이터 불러오기
-      let yearDataString = await AsyncStorage.getItem(key);
-  
-      if(yearDataString === null) {
-        throw new Error(`${key}의 데이터가 없습니다.`);
-      }
-  
-      // json으로 파싱
-      let yearData:IMonthData[] = JSON.parse(yearDataString);
-      // 해당 달 찾기
-    }
-    console.log(keys)
-  }
-)
+const initialState = {
+  state: HistoryStatus.LOADING,
+  income: 0,
+  spending: 0,
+  left: 0,
+  month: 0,
+  year: 0,
+  history: new Array<IMonthDataItem>
+}
 
 export const historySlice = createSlice({
   name: "history",
-  initialState: {
-    state: HistoryStatus.LOADING,
-    income: 0,
-    spending: 0,
-    left: 0,
-    month: "",
-    history: new Array<IMonthDataItem>
-  },
-
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(historyAsyncAdd.pending, (state, action) => {
@@ -185,28 +173,22 @@ export const historySlice = createSlice({
     })
     
     builder.addCase(historyAsyncAdd.fulfilled, (state, action) => {
+      console.log(state)
       state.state = HistoryStatus.COMPLETE
       // undefind 체크
       if(action.payload === undefined) {
         throw new Error("추가한 데이터가 없습니다.");
       }
-      const { history, income, left, month, spending } = action.payload;
+      const { history, income, left, month, spending, year } = action.payload;
 
       state.history = history;
       state.income = income;
       state.left = left;
       state.month = month;
+      state.year = year;
       state.spending = spending;
       return state;
-    }) 
-
-    builder.addCase(historyAsyncLoadAll.pending, (state, action) => {
-      state.state = HistoryStatus.LOADING;
-    })
-
-    builder.addCase(historyAsyncLoadAll.fulfilled, (state, action) => {
-        state.state = HistoryStatus.COMPLETE;
-    })
+    });
 
     builder.addCase(historyAsyncLoad.pending, (state, action) => {
       state.state = HistoryStatus.LOADING;
@@ -214,6 +196,9 @@ export const historySlice = createSlice({
 
     builder.addCase(historyAsyncLoad.fulfilled, (state, action) => {
       try {
+        if(action.payload === null || action.payload === undefined) {
+          return initialState;
+        }
         state = action.payload
         state.state = HistoryStatus.COMPLETE;
         return state
