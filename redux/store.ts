@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { userInputSlice } from "./slice/userInput";
 import { historySlice } from "./slice/history";
 import { category } from './slice/category';
-import { headerDate } from "./slice/header";
+import { headerSlice } from "./slice/header";
 
 
 
@@ -11,7 +11,7 @@ export const store = configureStore({
     userInput: userInputSlice.reducer,
     history: historySlice.reducer,
     category: category.reducer,
-    header: headerDate.reducer
+    header: headerSlice.reducer
   }
 })
 

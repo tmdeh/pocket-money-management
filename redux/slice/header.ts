@@ -11,7 +11,7 @@ interface IChange {
   year?: number | string | undefined
 }
 
-export const headerDate = createSlice({
+export const headerSlice = createSlice({
   name: "header_date",
   initialState: {
     year,
@@ -31,3 +31,5 @@ export const headerDate = createSlice({
     },
   },
 })
+
+export const { change } = headerSlice.actions;
