@@ -101,7 +101,7 @@ export const historyAsyncAdd = createAsyncThunk(
       }
 
       // 해당 달에 데이터 추가
-      monthData.history.push({
+      monthData.history.unshift({
         category,
         price,
         memo,
@@ -173,7 +173,6 @@ export const historySlice = createSlice({
     })
     
     builder.addCase(historyAsyncAdd.fulfilled, (state, action) => {
-      console.log(state)
       state.state = HistoryStatus.COMPLETE
       // undefind 체크
       if(action.payload === undefined) {
