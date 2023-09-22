@@ -7,29 +7,29 @@ const [year, month] = getNow().split("-");
 
 
 interface IChange {
-  month?: number | string | undefined,
-  year?: number | string | undefined
+  month?: number
+  year?: number
 }
 
 export const headerSlice = createSlice({
   name: "header_date",
   initialState: {
-    year,
-    month
+    year: parseInt(year),
+    month: parseInt(month)
   },
   reducers: {
-    change: (state, action: PayloadAction<IChange>) => {
+    modifyHeader: (state, action: PayloadAction<IChange>) => {
       const {month, year} =  action.payload;
 
       if(month !== undefined) {
-        state.month = month.toString();
+        state.month = month;
       }
 
       if(year !== undefined) {
-        state.year = year.toString();
+        state.year = year
       }
     },
   },
 })
 
-export const { change } = headerSlice.actions;
+export const { modifyHeader } = headerSlice.actions;

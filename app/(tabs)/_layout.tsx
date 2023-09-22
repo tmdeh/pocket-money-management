@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
-import { change } from "../../redux/slice/header";
+import { modifyHeader } from "../../redux/slice/header";
 import { historyAsyncLoad } from "../../redux/slice/history";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -40,21 +40,21 @@ export default function TabLayout() {
 
   function onTouchHeaderButton(increment: number) {
 
-    let tempMonth = parseInt(month) + increment;
+    let tempMonth = month + increment;
 
     // 12월로 넘어가는 경우
     if(tempMonth > 12) {
-      dispatch(change({year: parseInt(year) + 1, month: 1}));
+      dispatch(modifyHeader({year: year + 1, month: 1}));
       return;
     }
 
     // 1월 아래로 내려가는 경우
     if(tempMonth < 1) {
-      dispatch(change({year: parseInt(year) - 1, month: 12}));
+      dispatch(modifyHeader({year: year - 1, month: 12}));
       return;
     }
 
-    dispatch(change({month: tempMonth}));
+    dispatch(modifyHeader({month: tempMonth}));
   }
 
   function getHeaderButton(direction: "left" | "right", size: number, increment: number) {
