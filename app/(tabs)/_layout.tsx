@@ -76,13 +76,6 @@ export default function TabLayout() {
           headerRight:  () => getHeaderButton("right", buttonSize, 1),
           headerLeft: () => getHeaderButton("left", buttonSize, -1)
         };
-      case "calendar":
-        return {
-          tabBarIcon: ({ color, size }: IconProps) => (
-            <AntDesign name={iconName} size={size} color={color} />
-          ),
-          headerShown: false
-        }
       case "stats-chart-outline":
         return {
           tabBarIcon: ({ color, size }: IconProps) => (
@@ -103,7 +96,6 @@ export default function TabLayout() {
   return(
     <Tabs screenOptions={{tabBarShowLabel: false, tabBarActiveTintColor: "black"}} sceneContainerStyle={{backgroundColor: "white"}}>
       <Tabs.Screen name="index" options={setOption("home")} />
-      <Tabs.Screen name="Calendar" options={setOption("calendar")} />
       <Tabs.Screen name="Stats" options={setOption("stats-chart-outline")} />
       <Tabs.Screen name="Shopping" options={setOption("shoppingcart")} />
       <Tabs.Screen name="Settings" options={setOption("settings")} />
