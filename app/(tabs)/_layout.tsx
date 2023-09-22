@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React from "react";
 import { Tabs } from "expo-router";
 import { AntDesign, Ionicons, Feather } from '@expo/vector-icons';
 import { AppDispatch, RootState } from "../../redux/store";
@@ -7,8 +7,6 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
 import { useDispatch } from "react-redux";
 import { modifyHeader } from "../../redux/slice/header";
-import { historyAsyncLoad } from "../../redux/slice/history";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 interface IconProps {
