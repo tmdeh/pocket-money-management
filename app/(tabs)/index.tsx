@@ -20,11 +20,15 @@ export default function HomeScreen(): JSX.Element {
     return state.history
   })
 
+  const {year, month} = useSelector((state: RootState) => {
+    return state.header
+  })
+
   const dispatch = useDispatch<AppDispatch>()
   useEffect(() => {
-    dispatch(historyAsyncLoad({}));
-  }, [])
-  
+    dispatch(historyAsyncLoad({year, month}));
+  }, [year, month])
+
   return (
     <View style={style.container}>
       <MoneyStats left={historyData.left} income={historyData.income} spending={historyData.spending} />

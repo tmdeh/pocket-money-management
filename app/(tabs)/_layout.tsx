@@ -1,6 +1,12 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { Tabs } from "expo-router";
 import { AntDesign, Ionicons, Feather } from '@expo/vector-icons';
+import { AppDispatch, RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { StyleSheet } from "react-native";
+import { useDispatch } from "react-redux";
+import { modifyHeader } from "../../redux/slice/header";
 
 
 interface IconProps {
@@ -10,18 +16,51 @@ interface IconProps {
 }
 
 
+const styles = StyleSheet.create({
+  button: {
+    width: 24,
+    height: 24,
+    margin: 30
+  }
+})
+
 
 
 export default function TabLayout() {
-  const now = useMemo(getNow, []);
 
-  function getNow(): string {
-    const today = new Date();
-    let output = "";
-    output += today.getFullYear() + "년 ";
-    output += today.getMonth() + 1 + "월 ";
-    output += today.getDate() + "일 ";
-    return output;
+  const buttonSize = 24;
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  let {year, month} = useSelector((state: RootState) => {
+    return state.header
+  })
+
+  function onTouchHeaderButton(increment: number) {
+
+    let tempMonth = month + increment;
+
+    // 12월로 넘어가는 경우
+    if(tempMonth > 12) {
+      dispatch(modifyHeader({year: year + 1, month: 1}));
+      return;
+    }
+
+    // 1월 아래로 내려가는 경우
+    if(tempMonth < 1) {
+      dispatch(modifyHeader({year: year - 1, month: 12}));
+      return;
+    }
+
+    dispatch(modifyHeader({month: tempMonth}));
+  }
+
+  function getHeaderButton(direction: "left" | "right", size: number, increment: number) {
+    return (
+      <TouchableOpacity onPressOut={() => onTouchHeaderButton(increment)} style={styles.button}>
+        <AntDesign name={direction} size={size} color="black" />
+      </TouchableOpacity>
+    )
   }
 
 
@@ -33,7 +72,9 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }: IconProps) => (
             <AntDesign name={iconName} size={size} color={color} />
           ),
-          headerTitle: now
+          headerTitle: `${year}년 ${month}월`,
+          headerRight:  () => getHeaderButton("right", buttonSize, 1),
+          headerLeft: () => getHeaderButton("left", buttonSize, -1)
         };
       case "calendar":
         return {
@@ -47,7 +88,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }: IconProps) => (
             <Ionicons name={iconName} size={size} color={color} />
           ),
-          headerTitle: now,
+          headerTitle: `${year}년 ${month}월`
         };
       case "settings":
         return {
@@ -58,7 +99,6 @@ export default function TabLayout() {
         };
     }
   }
-
 
   return(
     <Tabs screenOptions={{tabBarShowLabel: false, tabBarActiveTintColor: "black"}} sceneContainerStyle={{backgroundColor: "white"}}>
