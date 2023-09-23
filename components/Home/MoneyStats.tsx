@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View, Platform } from "react-native";
+import { android, ios } from "../../module/shadow";
 
 
 interface MoneyStatsProp {
@@ -29,18 +30,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderWidth: 0,
     ...Platform.select({
-      ios: {
-          shadowColor: 'black',
-          shadowOffset: {
-          width: 0,
-          height: 10,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 10,
-      },
+      android,
+      ios
     })
   },
   headerText: {

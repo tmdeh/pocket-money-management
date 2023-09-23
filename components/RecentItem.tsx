@@ -2,6 +2,7 @@ import React from "react";
 import { Platform } from 'react-native';
 import { StyleSheet, Text, View } from "react-native";
 import { HistoryType } from "../redux/slice/history";
+import { ios, android } from "../module/shadow";
 
 interface RecentProps {
   price: string;
@@ -35,18 +36,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#fff",
     ...Platform.select({
-      ios: {
-          shadowColor: 'black',
-          shadowOffset: {
-          width: 0,
-          height: 10,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 10,
-      },
+      ios,
+      android
     })
   },
   income: {

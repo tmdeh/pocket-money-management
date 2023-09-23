@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import MoneyStats from "../../components/Home/MoneyStats";
-import { PlusButton, SubtractButton } from "../../components";
+import { PlusButton, SpendingButton } from "../../components";
 import { useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import Recent from "../../components/Recent";
@@ -34,7 +34,7 @@ export default function HomeScreen(): JSX.Element {
       <MoneyStats left={historyData.left} income={historyData.income} spending={historyData.spending} />
       <Recent list={historyData.history} />
       <PlusButton />
-      <SubtractButton />
+      <SpendingButton />
     </View>
   );
 }

@@ -1,8 +1,8 @@
 
 import PlusButton from './PlusButton';
-import SubtractButton from './SubtractButton';
+import SpendingButton from './SpendingButton';
 
 export {
     PlusButton,
-    SubtractButton
+    SpendingButton
 }
