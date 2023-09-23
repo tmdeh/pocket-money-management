@@ -1,8 +1,8 @@
 
-import PlusButton from './PlusButton';
+import EarningButton from './EarningButton';
 import SpendingButton from './SpendingButton';
 
 export {
-    PlusButton,
-    SpendingButton
+  EarningButton,
+  SpendingButton
 }

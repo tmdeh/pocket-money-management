@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 export enum HistoryType {
-  INCOME,
+  EARNING,
   SPENDING
 }
 
@@ -29,7 +29,7 @@ interface ILoad {
 
 export interface IMonthData {
   state: HistoryStatus,
-  income: number,
+  earning: number,
   spending: number,
   left: number,
   month: number,
@@ -83,7 +83,7 @@ export const historyAsyncAdd = createAsyncThunk(
           state: HistoryStatus.LOADING,
           month: m,
           year: parseInt(year),
-          income: 0,
+          earning: 0,
           spending: 0,
           left: 0,
           history: []
@@ -94,7 +94,7 @@ export const historyAsyncAdd = createAsyncThunk(
       // 소비, 지출 결과 처리
       if(type === 0) {
         monthData.left += price;
-        monthData.income += price;
+        monthData.earning += price;
       } else {
         monthData.left -= price;
         monthData.spending += price;
@@ -155,7 +155,7 @@ export const historyAsyncLoad = createAsyncThunk(
 
 const initialState = {
   state: HistoryStatus.LOADING,
-  income: 0,
+  earning: 0,
   spending: 0,
   left: 0,
   month: 0,
@@ -178,10 +178,10 @@ export const historySlice = createSlice({
       if(action.payload === undefined) {
         throw new Error("추가한 데이터가 없습니다.");
       }
-      const { history, income, left, month, spending, year } = action.payload;
+      const { history, earning, left, month, spending, year } = action.payload;
 
       state.history = history;
-      state.income = income;
+      state.earning = earning;
       state.left = left;
       state.month = month;
       state.year = year;

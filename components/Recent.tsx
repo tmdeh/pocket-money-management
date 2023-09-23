@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { IMonthDataItem } from "../redux/slice/history";
 import RecentItem from "./RecentItem";
-import AddIncomeIcon from "../assets/icon/Income";
+import AddEarningIcon from "../assets/icon/Earning";
 import SependingIcon from "../assets/icon/Spending";
 
 interface RecentProp {
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 export default function Recent({ list }: RecentProp) {
 
   const iconSize = 50;
-  const IncomeIcons = AddIncomeIcon({ iconSize });
+  const EarningIcon = AddEarningIcon({ iconSize });
   const SpendingIcon = SependingIcon({ iconSize, isList: true });
 
   return (
@@ -28,14 +28,14 @@ export default function Recent({ list }: RecentProp) {
         <RecentItem
           label={
             v.type === 0
-              ? IncomeIcons[v.category].label
+              ? EarningIcon[v.category].label
               : SpendingIcon[v.category].label
           }
           price={v.price.toLocaleString('ko-KR')}
           key={i}
           icon={
             v.type === 0
-              ? IncomeIcons[v.category].icon
+              ? EarningIcon[v.category].icon
               : SpendingIcon[v.category].icon
           }
           type={v.type}

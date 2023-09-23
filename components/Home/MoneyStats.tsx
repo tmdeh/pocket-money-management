@@ -5,16 +5,17 @@ import { android, ios } from "../../module/shadow";
 
 interface MoneyStatsProp {
   left: number,
-  income: number,
+  earning: number,
   spending: number
 }
 
-export default function MoneyStats({left, income, spending}: MoneyStatsProp) {
+export default function MoneyStats({left, earning, spending}: MoneyStatsProp) {
+
   return(
     <View style={styles.container}>
       <Text style={styles.headerText}>남은돈: {left.toLocaleString('ko-KR')}원</Text>
       <Text style={styles.text}>지출: {spending.toLocaleString('ko-KR')}원</Text>
-      <Text style={styles.text}>수입: {income.toLocaleString('ko-KR')}원</Text>
+      <Text style={styles.text}>수입: {earning.toLocaleString('ko-KR')}원</Text>
     </View>
   )
 }
