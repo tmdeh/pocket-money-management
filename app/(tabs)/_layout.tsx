@@ -81,7 +81,9 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }: IconProps) => (
             <Ionicons name={iconName} size={size} color={color} />
           ),
-          headerTitle: `${year}년 ${month}월`
+          headerTitle: `${year}년 ${month}월`,
+          headerRight:  () => getHeaderButton("right", buttonSize, 1),
+          headerLeft: () => getHeaderButton("left", buttonSize, -1)
         };
       case "settings":
         return {
