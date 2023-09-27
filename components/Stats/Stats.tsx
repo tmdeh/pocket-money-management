@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { IMonthData, IMonthDataItem } from "../../redux/slice/history";
-import { PieChart } from "react-native-chart-kit";
+import { LineChart, PieChart } from "react-native-chart-kit";
 
 
 interface IStatsProp {
@@ -17,8 +17,6 @@ interface IPieDataItem {
   name: string,
   population: number,
   color: string,
-  // legendFontColor: string,
-  // legendFontSize: number
 }
 
 interface ILineDataItem {
@@ -113,6 +111,13 @@ export default function Stats({ monthData, type, category}: IStatsProp) {
     setPieData()
     setLineData()
   }, [monthData])
+
+
+  const chartConfig = {
+    color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+    labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+    
+  }
 
   return(
     <View>

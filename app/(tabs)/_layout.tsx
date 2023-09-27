@@ -18,9 +18,10 @@ interface IconProps {
 
 const styles = StyleSheet.create({
   button: {
-    width: 24,
-    height: 24,
-    margin: 30
+    width: 18,
+    height: 20,
+    marginRight: 30,
+    marginLeft: 30
   }
 })
 
@@ -28,7 +29,7 @@ const styles = StyleSheet.create({
 
 export default function TabLayout() {
 
-  const buttonSize = 24;
+  const buttonSize = 20;
 
   const dispatch = useDispatch<AppDispatch>();
 
