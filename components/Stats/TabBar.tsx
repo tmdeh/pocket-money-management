@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-
+import { StyleSheet, Text, TouchableOpacity, View, Platform } from "react-native";
+import { ios, android } from "../../module/shadow";
 
 interface IStatsTabBarProps {
   isSelected: "earning" | "spending",
@@ -10,32 +10,34 @@ interface IStatsTabBarProps {
 
 const styles = StyleSheet.create({
   container: { 
-    flex: 0.07,
+    flex: 0.1,
     justifyContent: 'space-around',
     alignItems: "center",
     flexDirection: "row",
   },
   button: {
     justifyContent: "center",
-    backgroundColor: "black",
     flex: 1,
-    height: "100%"
+    height: "100%",
+    borderWidth: 1,
+    borderRadius: 24,
+    marginLeft: 20,
+    marginRight: 20,
   },
   selectedButton: {
-    justifyContent: "center",
-    height: "100%",
-    flex: 1
+    backgroundColor: "black",
+    ...Platform.select({
+      ios,
+      android
+    })
   },
   text: {
     fontWeight: "bold",
-    color: "white",
-    fontSize: 24,
+    fontSize: 20,
     textAlign: "center"
   },
   selectedText: {
-    fontWeight: "bold",
-    textAlign: "center",
-    fontSize: 24
+    color: "white",
   },
 })
 
@@ -43,11 +45,11 @@ const styles = StyleSheet.create({
 export default function StatsTabBar({isSelected, setIsSelected}: IStatsTabBarProps) {
   return(
     <View style={styles.container}>
-      <TouchableOpacity onPress={() => setIsSelected("earning")} style={[isSelected === "earning" ? styles.selectedButton : styles.button]}>
-        <Text style={[isSelected === "earning" ? styles.selectedText : styles.text]}>수입</Text>       
+      <TouchableOpacity onPress={() => setIsSelected("earning")} style={[styles.button, isSelected === "earning" ? styles.selectedButton : null]}>
+        <Text style={[styles.text, isSelected === "earning" ? styles.selectedText : null]}>수입</Text>       
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => setIsSelected("spending")} style={[isSelected === "spending" ? styles.selectedButton : styles.button]}>
-        <Text style={[isSelected === "spending" ? styles.selectedText : styles.text]}>지출</Text>       
+      <TouchableOpacity onPress={() => setIsSelected("spending")} style={[styles.button, isSelected === "spending" ? styles.selectedButton : null]}>
+        <Text style={[styles.text, isSelected === "spending" ? styles.selectedText : null]}>지출</Text>       
       </TouchableOpacity>
     </View>
   )
