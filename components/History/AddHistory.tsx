@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
 })
 
 
-interface AddIncomeProps {
+interface AddEarningProps {
   icons: {
     id: number,
     icon: JSX.Element,
@@ -64,7 +64,7 @@ interface AddIncomeProps {
 }
 
 
-export default function AddHistory({icons, type}: AddIncomeProps) {
+export default function AddHistory({icons, type}: AddEarningProps) {
   const [modalVisible, setModalVisible] = useState<boolean>(false);
 
   const dispatch = useDispatch<AppDispatch>();

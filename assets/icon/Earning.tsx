@@ -6,7 +6,7 @@ interface SpendingIconProp {
   category?: number,
 }
 
-export default function AddIncomeIcon({iconSize, category}: SpendingIconProp) {
+export default function AddEarningIcon({iconSize, category}: SpendingIconProp) {
   const icons =  [
     {
       id: 0,

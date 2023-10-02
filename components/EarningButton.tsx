@@ -27,7 +27,7 @@ export default function PlusButton() {
   return (
     <View style={styles.container}>
         <Link
-          href={{pathname: "AddIncome"}}
+          href={{pathname: "Earning"}}
           style={styles.button}
           >
           <Entypo name="plus" size={50} color="white" />

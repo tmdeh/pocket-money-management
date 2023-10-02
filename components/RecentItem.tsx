@@ -40,9 +40,6 @@ const styles = StyleSheet.create({
       android
     })
   },
-  income: {
-
-  },
   spending: {
     backgroundColor: "black",
     color: "#fff"
