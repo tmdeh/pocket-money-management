@@ -10,7 +10,7 @@ interface IStatsTabBarProps {
 
 const styles = StyleSheet.create({
   container: { 
-    flex: 0.1,
+    flex: 0.08,
     justifyContent: 'space-around',
     alignItems: "center",
     flexDirection: "row",
