@@ -39,8 +39,8 @@ export default function Stats({ monthData, type }: IStatsProp) {
 
   return (
     <View style={styles.container}>
-      <Pie type={type}/>
-      <Line type={type}/>
+      <Pie type={type} monthData={monthData}/>
+      <Line type={type} monthData={monthData}/>
     </View>
   );
 }

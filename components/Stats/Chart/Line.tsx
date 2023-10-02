@@ -5,7 +5,6 @@ import { RootState } from "../../../redux/store";
 import { IMonthDataItem } from "../../../redux/slice/history";
 import { LineChart } from "react-native-chart-kit";
 import { Text } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const styles = StyleSheet.create({
@@ -24,7 +23,8 @@ const styles = StyleSheet.create({
 })
 
 interface LineProps {
-  type: "earning" | "spending"
+  type: "earning" | "spending",
+  monthData: IMonthDataItem[]
 }
 
 interface ILineData {
@@ -36,7 +36,7 @@ interface ILineDataItem {
   data: Array<number>;
 }
 
-export function Line({type} : LineProps) {
+export function Line({type, monthData} : LineProps) {
 
   const lineConfig = {
     decimalPlaces: 0, // optional, defaults to 2dp
@@ -46,8 +46,6 @@ export function Line({type} : LineProps) {
       borderRadius: 16
     },
   }
-
-  const monthData = useSelector((v: RootState) => v.history.history);
   const [data, setData] = useState<ILineData>({
     labels: [],
     datasets: [

@@ -4,6 +4,7 @@ import { PieChart } from "react-native-chart-kit";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import tinycolor from "tinycolor2";
+import { IMonthDataItem } from "../../../redux/slice/history";
 
 
 export interface IPieDataItem {
@@ -14,7 +15,8 @@ export interface IPieDataItem {
 
 
 interface PieProp {
-  type: "earning" | "spending"
+  type: "earning" | "spending",
+  monthData: IMonthDataItem[]
 }
 
 
@@ -25,10 +27,9 @@ const styles = StyleSheet.create({
 })
 
 
-export function Pie({type}: PieProp) {
+export function Pie({type, monthData}: PieProp) {
 
   const [data, setData] = useState<IPieDataItem[]>([]);
-  const monthData = useSelector((v: RootState) => v.history.history);
   const category = useSelector((v: RootState) => v.category);
   const pieConfig = {
     color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
