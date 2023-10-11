@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pocket_money_management_app/screens/detail.dart';
 import 'package:pocket_money_management_app/screens/home.dart';
 import 'package:pocket_money_management_app/screens/settings.dart';
 import 'package:pocket_money_management_app/screens/shopping.dart';
@@ -83,6 +82,12 @@ class BottomNavigator extends StatelessWidget {
         ),
         body: TabBarView(
           children: _widgetOptions,
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+
+          },
+          child: const Icon(Icons.add),
         ),
       ),
     );
