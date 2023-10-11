@@ -21,11 +21,9 @@ const double iconHeight = 60.0;
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       initialRoute: '/',
       theme: lightTheme,
       darkTheme: darkTheme,
@@ -36,6 +34,16 @@ class MyApp extends StatelessWidget {
 
 class BottomNavigator extends StatelessWidget {
    BottomNavigator({Key? key}) : super(key: key);
+
+
+   String _getTitle() {
+     DateTime date = DateTime.now();
+
+     int month = date.month;
+     int year = date.year;
+
+     return "$year년 $month월";
+   }
 
   final List<Widget> _widgetOptions = [
     const HomeScreen(),
@@ -72,7 +80,7 @@ class BottomNavigator extends StatelessWidget {
       length: _tabs.length,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("용돈 관리"),
+          title: Text(_getTitle()),
         ),
         bottomNavigationBar: TabBar(
           tabs: _tabs,
