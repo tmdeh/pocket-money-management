@@ -66,7 +66,7 @@ class BottomNavigator extends StatelessWidget {
       length: _tabs.length,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("용돈 관리"),
+          title: const Text("용돈 관리"),
         ),
         bottomNavigationBar: TabBar(
           tabs: _tabs,
