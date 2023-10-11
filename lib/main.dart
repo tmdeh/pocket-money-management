@@ -17,6 +17,8 @@ final lightTheme = ThemeData(
   primaryColor: Colors.black
 );
 
+const double iconHeight = 60.0;
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -44,18 +46,23 @@ class BottomNavigator extends StatelessWidget {
   ];
 
 
+
   final List<Widget> _tabs = [
     const Tab(
-       icon: Icon(Icons.home)
+       icon: Icon(Icons.home),
+        height: iconHeight,
     ),
     const Tab(
       icon: Icon(Icons.pie_chart),
+      height: iconHeight,
     ),
     const Tab(
       icon: Icon(Icons.shopping_cart),
+      height: iconHeight,
     ),
     const Tab(
       icon: Icon(Icons.settings),
+      height: iconHeight,
     )
   ];
 
