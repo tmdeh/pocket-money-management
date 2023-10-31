@@ -9,14 +9,24 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       splash: const Scaffold(
-        body: Center(
-          child: Text("SplashScreen"),
+        body: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 15,),
+                Text("loading..."),
+              ],
+            ),
+          ],
         ),
       ),
       nextScreen: BottomNavigator(),
-      animationDuration: const Duration(microseconds: 2000),
+      animationDuration: const Duration(microseconds: 500),
       function: () async {
-        // 앱에 필요한 작업들 추가
+        // TODO: 앱에 필요한 작업들 추가
         await Future.delayed(const Duration(seconds: 2));
       },
       splashTransition: SplashTransition.slideTransition,
