@@ -26,7 +26,7 @@ class RecordList extends StatelessWidget {
             RecordItem(
               category: "식비",
               price: 3000,
-              memo: "라면라면라면라면라면라면라면라면",
+              memo: "라면라면라면라면라면라면라면라면라면",
               payDate: DateTime.now(),
               type: RecordType.spend,
             ),
@@ -34,7 +34,7 @@ class RecordList extends StatelessWidget {
             RecordItem(
               category: "식비",
               price: 3000,
-              memo: "라면라면라면라면라면라면라면라면",
+              memo: "가나다라마바사아자차카마파아",
               payDate: DateTime.now(),
               type: RecordType.spend,
             ),

@@ -29,7 +29,7 @@ class _TileState extends State<RecordItem> {
   bool _isExtended = false;
   bool _isReady = false;
 
-  late double _extendedHeight = 120.0;
+  final double _extendedHeight = 140.0;
 
   void _onTap() {
     setState(() {
@@ -54,7 +54,7 @@ class _TileState extends State<RecordItem> {
       onTap: _onTap,
       child: AnimatedContainer(
         height: _isExtended ? _extendedHeight : 60.0,
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 150),
         curve: Curves.linear,
         onEnd: _onAnimationEnd,
         decoration: BoxDecoration(
@@ -72,7 +72,8 @@ class _TileState extends State<RecordItem> {
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               _Outline(category: widget.category, price: widget.price),
               _Memo(isReady: _isReady, memo: widget.memo, payDate: widget.payDate),
@@ -142,9 +143,8 @@ class _Memo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
-
       opacity: isReady ? 1.0 : 0,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 150),
       child: Visibility(
         visible: isReady,
         child: Column(
@@ -153,12 +153,13 @@ class _Memo extends StatelessWidget {
             Text(
               "${payDate.day}일 ${payDate.hour}시 ${payDate.minute}분",
             ),
-            const SizedBox(height: 15,),
+            const SizedBox(height: 5,),
             Text(
               memo,
               style: const TextStyle(
                 fontSize: 24
               ),
+              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),
