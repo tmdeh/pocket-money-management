@@ -12,7 +12,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final records = MockRecordRespository().getRecords();
 
   @override
   Widget build(BuildContext context) {
