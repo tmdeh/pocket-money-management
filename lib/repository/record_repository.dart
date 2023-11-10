@@ -1,17 +1,22 @@
-abstract interface class RecordRepository {
-
-  late List<Record> _recrods;
-
-  // 리스트 전체 불러오기
-  List<Record> getRecordList();
 
 
-  // 리스트 아이템 불러오기
-  Record getItem(int id);
 
-  // 리스트 아이템 업데이트
+import 'package:pocket_money_management_app/model/record.dart';
+
+abstract class RecordRepository {
+
+  late List<Record> records;
+
+  List<Record> getList() {
+    return records;
+  }
+
   void updateItem(Record record, int id);
 
-  // 리스트 아이템 삭제
   void deleteItem(int id);
+
+  Record getItem(int id) {
+    return records[id];
+  }
+
 }
