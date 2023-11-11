@@ -4,7 +4,7 @@ import 'package:pocket_money_management_app/model/record.dart';
 
 class RecordItem extends StatefulWidget {
 
- // TODO: 수입은 흰식, 지출은 검은색 적용
+ // TODO: primary 색 지정
 
   final int price;
   final String category;
@@ -58,7 +58,7 @@ class _TileState extends State<RecordItem> {
         curve: Curves.linear,
         onEnd: _onAnimationEnd,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: widget.type == RecordType.income ? Colors.white : Colors.black,
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
@@ -75,8 +75,8 @@ class _TileState extends State<RecordItem> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _Outline(category: widget.category, price: widget.price),
-              _Memo(isReady: _isReady, memo: widget.memo, payDate: widget.payDate),
+              _Outline(category: widget.category, price: widget.price, type: widget.type,),
+              _Memo(isReady: _isReady, memo: widget.memo, payDate: widget.payDate, type: widget.type,),
             ],
           ),
         ),
@@ -91,34 +91,40 @@ class _Outline extends StatelessWidget {
 
   final String category;
   final int price;
+  final RecordType type;
 
   const _Outline({
     super.key,
     required this.price,
     required this.category,
+    required this.type,
   });
 
-  final _textStyle = const TextStyle(
-    fontSize: 26,
-  );
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Row(
-            children: [
-              const Icon(Icons.add),
-              const SizedBox(width: 10,),
-              Text(category, style: _textStyle),
-            ],
-          ),
-          const SizedBox(width: 10,),
-          Text('${price}원', style: _textStyle),
-        ],
-      ),
+
+    final textStyle = TextStyle(
+      fontSize: 26,
+      color: type == RecordType.income ? Colors.black : Colors.white
+    );
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Row(
+          children: [
+             Icon(
+              Icons.add,
+              color: type == RecordType.income ? Colors.black : Colors.white,
+            ),
+            const SizedBox(width: 10,),
+            Text(category, style: textStyle),
+          ],
+        ),
+        const SizedBox(width: 10,),
+        Text('$price원', style: textStyle),
+      ],
     );
   }
 }
@@ -131,6 +137,7 @@ class _Memo extends StatelessWidget {
   final bool isReady;
   final String memo;
   final DateTime payDate;
+  final RecordType type;
 
 
   const _Memo({
@@ -138,6 +145,7 @@ class _Memo extends StatelessWidget {
     required this.memo,
     required this.payDate,
     required this.isReady,
+    required this.type,
   });
 
   @override
@@ -152,11 +160,15 @@ class _Memo extends StatelessWidget {
           children: [
             Text(
               "${payDate.day}일 ${payDate.hour}시 ${payDate.minute}분",
+              style: TextStyle(
+                color: type == RecordType.income ? Colors.black : Colors.white.withOpacity(0.6),
+              ),
             ),
             const SizedBox(height: 5,),
             Text(
               memo,
-              style: const TextStyle(
+              style: TextStyle(
+                color: type == RecordType.income ? Colors.black : Colors.white,
                 fontSize: 24
               ),
               overflow: TextOverflow.ellipsis,

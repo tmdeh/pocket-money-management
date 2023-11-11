@@ -21,7 +21,7 @@ class RecordList extends StatelessWidget {
           itemCount: records.length,
           itemBuilder:  (context, index) {
             return Padding(
-              padding: EdgeInsets.only(bottom: 15),
+              padding: const EdgeInsets.only(bottom: 15),
               child: RecordItem(
                 category: records[index].category,
                 memo: records[index].memo,
