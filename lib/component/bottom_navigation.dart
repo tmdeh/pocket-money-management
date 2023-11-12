@@ -18,7 +18,7 @@ class BottomNavigator extends StatelessWidget {
   }
 
   final List<Widget> _widgetOptions = [
-    const HomeScreen(),
+    HomeScreen(),
     const StatsScreen(),
     const ShoppingScreen(),
     const SettingScreen()
