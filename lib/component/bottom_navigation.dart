@@ -28,6 +28,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
   ];
 
 
+  void onAddButton() {
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +45,10 @@ class _BottomNavigationState extends State<BottomNavigation> {
           children: _widgetOptions,
         ),
       ),
-      floatingActionButton: ,
+      floatingActionButton: FloatingActionButton(
+        onPressed: onAddButton,
+        child: const Icon(Icons.add),
+      ),
       bottomNavigationBar: NavigationBar(
         selectedIndex: selectedIndex,
         onDestinationSelected: (value) => setState(() {
