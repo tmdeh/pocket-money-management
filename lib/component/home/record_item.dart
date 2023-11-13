@@ -50,34 +50,45 @@ class _TileState extends State<RecordItem> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _onTap,
-      child: AnimatedContainer(
-        height: _isExtended ? _extendedHeight : 60.0,
-        duration: const Duration(milliseconds: 150),
-        curve: Curves.linear,
-        onEnd: _onAnimationEnd,
-        decoration: BoxDecoration(
-          color: widget.type == RecordType.income ? Colors.white : Colors.black,
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.grey.withOpacity(0.7),
-                blurRadius: 5.0,
-                spreadRadius: 2.0,
-                offset: const Offset(0, 7)
-            )
-          ],
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _Outline(category: widget.category, price: widget.price, type: widget.type,),
-              _Memo(isReady: _isReady, memo: widget.memo, payDate: widget.payDate, type: widget.type,),
-            ],
+    return Card(
+      child: GestureDetector(
+        onTap: _onTap,
+        child: AnimatedContainer(
+          height: _isExtended ? _extendedHeight : 60.0,
+          duration: const Duration(milliseconds: 150),
+          curve: Curves.linear,
+          onEnd: _onAnimationEnd,
+          decoration: BoxDecoration(
+            color: widget.type == RecordType.income ?
+            Theme
+                .of(context)
+                .colorScheme
+                .primaryContainer :
+            Theme
+                .of(context)
+                .colorScheme
+                .tertiaryContainer,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _Outline(
+                  category: widget.category,
+                  price: widget.price,
+                  type: widget.type,
+                ),
+                _Memo(
+                  isReady: _isReady,
+                  memo: widget.memo,
+                  payDate: widget.payDate,
+                  type: widget.type,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -106,7 +117,9 @@ class _Outline extends StatelessWidget {
 
     final textStyle = TextStyle(
       fontSize: 26,
-      color: type == RecordType.income ? Colors.black : Colors.white
+      color: type == RecordType.income ?
+        Theme.of(context).colorScheme.primary :
+        Theme.of(context).colorScheme.tertiary
     );
 
     return Row(
@@ -116,7 +129,9 @@ class _Outline extends StatelessWidget {
           children: [
              Icon(
               Icons.add,
-              color: type == RecordType.income ? Colors.black : Colors.white,
+              color: type == RecordType.income ?
+                Theme.of(context).colorScheme.primary :
+                Theme.of(context).colorScheme.tertiary,
             ),
             const SizedBox(width: 10,),
             Text(category, style: textStyle),
@@ -161,14 +176,18 @@ class _Memo extends StatelessWidget {
             Text(
               "${payDate.day}일 ${payDate.hour}시 ${payDate.minute}분",
               style: TextStyle(
-                color: type == RecordType.income ? Colors.black : Colors.white.withOpacity(0.6),
+                color: type == RecordType.income ?
+                  Theme.of(context).colorScheme.primary :
+                  Theme.of(context).colorScheme.tertiary,
               ),
             ),
             const SizedBox(height: 5,),
             Text(
               memo,
               style: TextStyle(
-                color: type == RecordType.income ? Colors.black : Colors.white,
+                color: type == RecordType.income ?
+                  Theme.of(context).colorScheme.primary :
+                  Theme.of(context).colorScheme.tertiary,
                 fontSize: 24
               ),
               overflow: TextOverflow.ellipsis,

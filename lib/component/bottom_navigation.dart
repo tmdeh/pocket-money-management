@@ -4,13 +4,16 @@ import 'package:pocket_money_management_app/screens/settings.dart';
 import 'package:pocket_money_management_app/screens/shopping.dart';
 import 'package:pocket_money_management_app/screens/stats.dart';
 
-const iconHeight = 60.0;
+class BottomNavigation extends StatefulWidget {
+  const BottomNavigation({super.key});
 
-class BottomNavigator extends StatelessWidget {
+  @override
+  State<BottomNavigation> createState() => _BottomNavigationState();
+}
 
-  BottomNavigator({
-    Key? key,
-  }) : super(key: key);
+class _BottomNavigationState extends State<BottomNavigation> {
+
+  int selectedIndex = 0;
 
   String _getTitle() {
     DateTime date = DateTime.now();
@@ -24,52 +27,68 @@ class BottomNavigator extends StatelessWidget {
     const SettingScreen()
   ];
 
-  final List<Widget> _tabs = [
-    const Tab(
-      icon: Icon(Icons.home),
-      height: iconHeight,
-    ),
-    const Tab(
-      icon: Icon(Icons.pie_chart),
-      height: iconHeight,
-    ),
-    const Tab(
-      icon: Icon(Icons.shopping_cart),
-      height: iconHeight,
-    ),
-    const Tab(
-      icon: Icon(Icons.settings),
-      height: iconHeight,
-    )
-  ];
+
+  void onAddButton() {
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
-
-    void addOnPressed() {
-
-    }
-
-    return DefaultTabController(
-      initialIndex: 1,
-      length: _tabs.length,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(_getTitle()),
-        ),
-        bottomNavigationBar: TabBar(
-          tabs: _tabs,
-          indicatorColor: Colors.transparent,
-          unselectedLabelColor: Colors.grey,
-          labelColor: Colors.black,
-        ),
-        body: TabBarView(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_getTitle()),
+      ),
+      body: Center(
+        child: IndexedStack(
+          index: selectedIndex,
           children: _widgetOptions,
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: addOnPressed,
-          child: const Icon(Icons.add),
-        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: onAddButton,
+        child: const Icon(Icons.add),
+      ),
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: selectedIndex,
+        onDestinationSelected: (value) => setState(() {
+          selectedIndex = value;
+        }),
+        animationDuration: const Duration(milliseconds: 500),
+        destinations: [
+          NavigationDestination(
+            icon: const Icon(Icons.home),
+            label: "홈",
+            selectedIcon: Icon(
+              Icons.home,
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
+            ),
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.pie_chart),
+            label: "통계",
+            selectedIcon: Icon(
+              Icons.pie_chart,
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
+            ),
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.shopping_cart),
+            label: "쇼핑",
+            selectedIcon: Icon(
+              Icons.shopping_cart,
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
+            ),
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.settings),
+            label: "설정",
+            selectedIcon: Icon(
+              Icons.settings,
+              color: Theme.of(context).colorScheme.onSecondaryContainer,
+            ),
+          ),
+        ],
       ),
     );
   }
