@@ -46,16 +46,8 @@ class Recent extends StatelessWidget {
         child: Container(
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.primaryContainer,
             borderRadius: BorderRadius.circular(15),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.7),
-                blurRadius: 5.0,
-                spreadRadius: 2.0,
-                offset: const Offset(0, 7)
-              )
-            ],
           ),
           child: Container(
             padding: const EdgeInsets.only(left: 20),
