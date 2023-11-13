@@ -23,7 +23,7 @@ class SplashScreen extends StatelessWidget {
           ],
         ),
       ),
-      nextScreen: BottomNavigator(),
+      nextScreen: BottomNavigation(),
       animationDuration: const Duration(microseconds: 500),
       function: () async {
         // TODO: 앱에 필요한 작업들 추가
