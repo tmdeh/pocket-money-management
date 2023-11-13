@@ -75,8 +75,17 @@ class _TileState extends State<RecordItem> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _Outline(category: widget.category, price: widget.price, type: widget.type,),
-              _Memo(isReady: _isReady, memo: widget.memo, payDate: widget.payDate, type: widget.type,),
+              _Outline(
+                category: widget.category,
+                price: widget.price,
+                type: widget.type,
+              ),
+              _Memo(
+                isReady: _isReady,
+                memo: widget.memo,
+                payDate: widget.payDate,
+                type: widget.type,
+              ),
             ],
           ),
         ),
