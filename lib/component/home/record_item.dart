@@ -50,37 +50,45 @@ class _TileState extends State<RecordItem> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _onTap,
-      child: AnimatedContainer(
-        height: _isExtended ? _extendedHeight : 60.0,
-        duration: const Duration(milliseconds: 150),
-        curve: Curves.linear,
-        onEnd: _onAnimationEnd,
-        decoration: BoxDecoration(
-          color: widget.type == RecordType.income ?
-            Theme.of(context).colorScheme.primaryContainer :
-            Theme.of(context).colorScheme.tertiaryContainer,
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _Outline(
-                category: widget.category,
-                price: widget.price,
-                type: widget.type,
-              ),
-              _Memo(
-                isReady: _isReady,
-                memo: widget.memo,
-                payDate: widget.payDate,
-                type: widget.type,
-              ),
-            ],
+    return Card(
+      child: GestureDetector(
+        onTap: _onTap,
+        child: AnimatedContainer(
+          height: _isExtended ? _extendedHeight : 60.0,
+          duration: const Duration(milliseconds: 150),
+          curve: Curves.linear,
+          onEnd: _onAnimationEnd,
+          decoration: BoxDecoration(
+            color: widget.type == RecordType.income ?
+            Theme
+                .of(context)
+                .colorScheme
+                .primaryContainer :
+            Theme
+                .of(context)
+                .colorScheme
+                .tertiaryContainer,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                _Outline(
+                  category: widget.category,
+                  price: widget.price,
+                  type: widget.type,
+                ),
+                _Memo(
+                  isReady: _isReady,
+                  memo: widget.memo,
+                  payDate: widget.payDate,
+                  type: widget.type,
+                ),
+              ],
+            ),
           ),
         ),
       ),
