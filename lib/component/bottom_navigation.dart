@@ -33,11 +33,24 @@ class _BottomNavigationState extends State<BottomNavigation> {
   }
 
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(_getTitle()),
+        centerTitle: true,
+        leading: IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.chevron_left)
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.chevron_right)
+          ),
+        ],
       ),
       body: Center(
         child: IndexedStack(
