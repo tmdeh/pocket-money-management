@@ -10,6 +10,7 @@ class Category with _$Category {
     int? id,
     required String name,
     required CategoryType type,
+    required int color,
   }) = _Category;
 
   factory Category.fromJson(Map<String, dynamic> json) =>

@@ -1,4 +1,4 @@
 enum CategoryType {
   income,
-  spending
+  spending,
 }
