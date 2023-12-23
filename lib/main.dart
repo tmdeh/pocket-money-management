@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pocket_money_management_app/component/bottom_navigation.dart';
-import 'package:pocket_money_management_app/thema/dark.dart';
-import 'package:pocket_money_management_app/thema/light.dart';
+import 'package:pocket_money_management_app/presentaion/component/bottom_navigation.dart';
+import 'package:pocket_money_management_app/presentaion/thema/dark.dart';
+import 'package:pocket_money_management_app/presentaion/thema/light.dart';
 
 void main() {
   runApp(const MyApp());
