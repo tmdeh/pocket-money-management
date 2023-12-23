@@ -9,7 +9,6 @@ part 'record.g.dart';
 class Record with _$Record {
   factory Record({
     int? id,
-    required String name,
     required int timestamp,
     required Category category,
     @JsonKey(name: 'payment_type')
