@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:pocket_money_management_app/core/category_type.dart';
-import 'package:pocket_money_management_app/data/model/category.dart';
+import 'package:pocket_money_management_app/domain/model/category.dart';
+
 
 final List<Category> defaultCategories = [
   Category(name: '식비', type: CategoryType.spending, color: Colors.red.value),
