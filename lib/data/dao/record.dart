@@ -23,7 +23,4 @@ class Record extends Table {
 class RecordDao extends DatabaseAccessor<Database> with _$RecordDaoMixin {
   RecordDao(Database db) : super(db);
 
-
-
-
 }
