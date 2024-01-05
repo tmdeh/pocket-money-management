@@ -38,6 +38,10 @@ dependencies:
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
 
+  # 의존성 관리
+  injectable: ^2.3.2
+  get_it: ^7.6.4
+
   # 로컬 데이터베이스
   drift: ^2.14.0
   sqlite3_flutter_libs: ^0.5.0
@@ -60,6 +64,10 @@ dev_dependencies:
   sqflite_common_ffi: ^2.3.1
 
   drift_dev: ^2.14.0
+
+  # 의존성 관리
+  injectable_generator:
+
 
 
 # For information on the generic Dart part of this file, see the

@@ -12,9 +12,9 @@ class Record with _$Record {
   factory Record({
     int? id,
     required int timestamp,
-    required Map<String, dynamic> category,
+    required Category category,
     @JsonKey(name: 'payment_type')
-    required Map<String, dynamic> paymentType
+    required PaymentType paymentType
   }) = _Record;
 
   factory Record.fromJson(Map<String, dynamic> json) => _$RecordFromJson(json);
