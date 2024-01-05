@@ -23,4 +23,24 @@ class Record extends Table {
 class RecordDao extends DatabaseAccessor<Database> with _$RecordDaoMixin {
   RecordDao(Database db) : super(db);
 
+  Stream<List<RecordData>> getRecordDatas() {
+    final query = select(record).join([
+      innerJoin(category, category.id.equalsExp(record.id)),
+    ]).join([
+      innerJoin(paymentType, paymentType.id.equalsExp(record.id))
+    ]);
+
+
+    return query.map((row) => row.readTable(record)).watch();
+  }
+
+  // TODO: 삽입
+
+
+  // TODO: 수정
+
+  // TODO: 하나만 불러오기
+
+  // TODO: 삭제
+
 }
