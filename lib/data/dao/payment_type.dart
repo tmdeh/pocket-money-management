@@ -21,20 +21,28 @@ class PaymentTypeDao extends DatabaseAccessor<Database>
         name: Value(data.name),
       ));
 
-  Future<List<PaymentTypeData>> getPaymentTypes() async =>
-      select(paymentType).get();
+  Future<List<model.PaymentType>> getPaymentTypes() async =>
+      select(paymentType).get().then((value) => value
+          .map((e) => model.PaymentType(
+                name: e.name,
+                id: e.id,
+              ))
+          .toList());
 
-
-  Future<PaymentTypeData> getPaymentType(int id) async =>
-      (select(paymentType)..where((tbl) => tbl.id.equals(id))).getSingle();
+  Future<model.PaymentType> getPaymentType(int id) async =>
+      (select(paymentType)..where((tbl) => tbl.id.equals(id)))
+          .getSingle()
+          .then((value) => model.PaymentType(
+                name: value.name,
+                id: value.id,
+              ));
 
   Future deletePaymentType(int id) async =>
       delete(paymentType)..where((tbl) => tbl.id.equals(id));
 
   Future updatePaymentType(model.PaymentType data) async =>
-      (update(paymentType)..where((tbl) => tbl.id.equals(data.id!))).write(
-        PaymentTypeCompanion(
-          name: Value(data.name),
-        )
-      );
+      (update(paymentType)..where((tbl) => tbl.id.equals(data.id!)))
+          .write(PaymentTypeCompanion(
+        name: Value(data.name),
+      ));
 }

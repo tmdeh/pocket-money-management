@@ -20,7 +20,7 @@ part 'database_setup.g.dart';
 @DriftDatabase(tables: [Record, PaymentType, Category])
 class Database extends _$Database {
 
-  Database() : super(_openConnection());
+  Database(QueryExecutor? e) : super(e ?? _openConnection());
 
   @override
   int get schemaVersion => 1;
