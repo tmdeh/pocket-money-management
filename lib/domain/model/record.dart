@@ -12,6 +12,7 @@ class Record with _$Record {
   factory Record({
     int? id,
     required int timestamp,
+    required int value,
     required Category category,
     @JsonKey(name: 'payment_type')
     required PaymentType paymentType
