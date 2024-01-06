@@ -38,7 +38,7 @@ class PaymentTypeDao extends DatabaseAccessor<Database>
               ));
 
   Future deletePaymentType(int id) async =>
-      delete(paymentType)..where((tbl) => tbl.id.equals(id));
+      (delete(paymentType)..where((tbl) => tbl.id.equals(id))).go();
 
   Future updatePaymentType(model.PaymentType data) async =>
       (update(paymentType)..where((tbl) => tbl.id.equals(data.id!)))

@@ -45,7 +45,7 @@ class CategoryDao extends DatabaseAccessor<Database> with _$CategoryDaoMixin {
               ));
 
   Future deleteCategory(int id) async =>
-      delete(category)..where((tbl) => tbl.id.equals(id));
+      (delete(category)..where((tbl) => tbl.id.equals(id))).go();
 
   Future insertCategory(model.Category data) async {
     into(category).insert(CategoryCompanion(

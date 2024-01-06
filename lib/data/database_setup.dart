@@ -1,4 +1,4 @@
-// These imports are necessary to open the sqlite3 database
+
 import 'dart:io';
 
 import 'package:drift/drift.dart';
