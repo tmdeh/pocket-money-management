@@ -2,6 +2,7 @@ import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pocket_money_management_app/core/category_type.dart';
 import 'package:pocket_money_management_app/data/dao/payment_type.dart';
+import 'package:pocket_money_management_app/data/dao/record.dart';
 import 'package:pocket_money_management_app/domain/model/category.dart'
 as category_model;
 import 'package:pocket_money_management_app/domain/model/payment_type.dart' as payment_type_model;
@@ -119,17 +120,42 @@ void main() async {
 
   });
 
-  test('record table test', () {
+  test('record table test', () async {
+
+    final categoryDao = CategoryDao(database);
+    final paymentTypeDao = PaymentTypeDao(database);
+    final recordDao = RecordDao(database);
+
+    final sampleCategory = category_model.Category(name: '카테고리', color: 1, type: CategoryType.income);
+    final samplePaymentType = payment_type_model.PaymentType(name: '현금');
+
+    await categoryDao.insertCategory(sampleCategory);
+    await paymentTypeDao.insertPaymentType(samplePaymentType);
+
+    // ------------------------------------------------------------
 
     // insert
 
-    // select all stream
+    final categoryFirst = (await categoryDao.getCategories()).first;
+    final paymentTypeFirst = (await paymentTypeDao.getPaymentTypes()).first;
+
+    await recordDao.insertRecord(record_model.Record(value: 1000, category: categoryFirst, paymentType: paymentTypeFirst));
+    await recordDao.insertRecord(record_model.Record(value: 2000, category: categoryFirst, paymentType: paymentTypeFirst));
 
     // select
+    var firstRecord = await recordDao.getRecord(1);
+    expect(firstRecord.id, 1);
 
     // update
+    await recordDao.updateRecord(firstRecord.copyWith(value: 3000));
+    firstRecord = await recordDao.getRecord(1);
+    expect(firstRecord.value, 3000);
 
     // delete
+
+
+    // select all stream
+
 
   });
 }

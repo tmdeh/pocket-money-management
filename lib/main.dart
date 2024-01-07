@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pocket_money_management_app/core/default_category.dart';
 import 'package:pocket_money_management_app/di/setup.dart';
 import 'package:pocket_money_management_app/presentaion/component/bottom_navigation.dart';
 import 'package:pocket_money_management_app/presentaion/thema/dark.dart';

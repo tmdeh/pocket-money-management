@@ -1,9 +1,12 @@
 import 'package:drift/drift.dart';
 import 'package:pocket_money_management_app/data/dao/category.dart';
 import 'package:pocket_money_management_app/data/dao/payment_type.dart';
+import 'package:pocket_money_management_app/data/dao/record_detail.dart';
 import 'package:pocket_money_management_app/data/database_setup.dart';
 
 import 'package:pocket_money_management_app/domain/model/record.dart' as model;
+import 'package:pocket_money_management_app/domain/model/category.dart' as category_model;
+import 'package:pocket_money_management_app/domain/model/payment_type.dart' as paymentType_model;
 
 part 'record.g.dart';
 
@@ -24,12 +27,34 @@ class Record extends Table {
 class RecordDao extends DatabaseAccessor<Database> with _$RecordDaoMixin {
   RecordDao(Database db) : super(db);
 
-  Stream<List<RecordData>> getRecords() {
-    final query = select(record).join([
+  Stream<List<model.Record>> getRecords() {
+    final query = (select(record).join([
       innerJoin(category, category.id.equalsExp(record.id)),
-    ]).join([innerJoin(paymentType, paymentType.id.equalsExp(record.id))]);
+      innerJoin(paymentType, paymentType.id.equalsExp(record.id))
+    ]));
 
-    return query.map((row) => row.readTable(record)).watch();
+    return query.map((row) {
+      final r = row.readTable(record);
+      final c = row.readTable(category);
+      final p  = row.readTable(paymentType);
+
+      return model.Record(
+          id: r.id,
+          value: r.value,
+          category: category_model.Category(
+              id: c.id,
+              name: c.name,
+              type: c.type,
+              color: c.color
+          ),
+          paymentType: paymentType_model.PaymentType(
+            id: p.id,
+            name: p.name,
+          ),
+          timestamp: r.timestamp
+      );
+    }).watch();
+
   }
 
   Future insertRecord(model.Record data) async {
@@ -49,10 +74,36 @@ class RecordDao extends DatabaseAccessor<Database> with _$RecordDaoMixin {
     ));
   }
 
-  Future<RecordData> getRecord(int id) async =>
-      (select(record)..where((tbl) => tbl.id.equals(id))).getSingle();
+  Future<model.Record> getRecord(int id) async {
+    final query = (select(record).join([
+      innerJoin(category, category.id.equalsExp(record.id)),
+      innerJoin(paymentType, paymentType.id.equalsExp(record.id))
+    ]))
+      ..where(record.id.equals(id));
 
+    return query.getSingle().then((value) {
+      final r = value.readTable(record);
+      final c = value.readTable(category);
+      final p  = value.readTable(paymentType);
 
+      return model.Record(
+        id: r.id,
+        value: r.value,
+        category: category_model.Category(
+          id: c.id,
+          name: c.name,
+          type: c.type,
+          color: c.color
+        ),
+        paymentType: paymentType_model.PaymentType(
+          id: p.id,
+          name: p.name,
+        ),
+        timestamp: r.timestamp
+      );
+
+    });
+  }
   Future deleteRecord(int id) async =>
       delete(record)..where((tbl) => tbl.id.equals(id));
 }
