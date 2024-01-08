@@ -1,4 +1,5 @@
 import 'package:drift/drift.dart';
+import 'package:injectable/injectable.dart';
 import 'package:pocket_money_management_app/data/data_source/dao/category.dart';
 import 'package:pocket_money_management_app/data/data_source/dao/payment_type.dart';
 import 'package:pocket_money_management_app/data/data_source/database_setup.dart';
@@ -22,6 +23,7 @@ class Record extends Table {
   IntColumn get paymentType => integer().references(PaymentType, #id)();
 }
 
+@singleton
 @DriftAccessor(tables: [Record, Category, PaymentType])
 class RecordDao extends DatabaseAccessor<Database> with _$RecordDaoMixin {
   RecordDao(Database db) : super(db);

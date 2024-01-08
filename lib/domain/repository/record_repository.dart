@@ -5,7 +5,7 @@ abstract interface class RecordRepository {
 
   Stream<List<Record>> getStream();
 
-  Future<Record> get();
+  Future<Record> get(int id);
 
   Future<void> insert(Record data);
 
