@@ -4,9 +4,11 @@ import 'package:pocket_money_management_app/core/category_type.dart';
 import 'package:pocket_money_management_app/data/dao/payment_type.dart';
 import 'package:pocket_money_management_app/data/dao/record.dart';
 import 'package:pocket_money_management_app/domain/model/category.dart'
-as category_model;
-import 'package:pocket_money_management_app/domain/model/payment_type.dart' as payment_type_model;
-import 'package:pocket_money_management_app/domain/model/record.dart' as record_model;
+    as category_model;
+import 'package:pocket_money_management_app/domain/model/payment_type.dart'
+    as payment_type_model;
+import 'package:pocket_money_management_app/domain/model/record.dart'
+    as record_model;
 import 'package:pocket_money_management_app/data/dao/category.dart';
 import 'package:pocket_money_management_app/data/database_setup.dart';
 
@@ -29,11 +31,10 @@ void main() async {
   test('category table test', () async {
     final CategoryDao categoryDao = CategoryDao(database);
 
-    final category1 =
-    category_model.Category(
+    final category1 = category_model.Category(
         name: '카테고리1', type: CategoryType.spending, color: 1);
-    final category2 =
-    category_model.Category(name: '카테고리2', type: CategoryType.income, color: 2);
+    final category2 = category_model.Category(
+        name: '카테고리2', type: CategoryType.income, color: 2);
 
     // insert
     await categoryDao.insertCategory(category1);
@@ -59,7 +60,7 @@ void main() async {
 
     // update
     final updatedCategory =
-    firstCategory.copyWith(name: 'changed name', type: CategoryType.income);
+        firstCategory.copyWith(name: 'changed name', type: CategoryType.income);
     await categoryDao.updateCategory(updatedCategory);
 
     searchedCategory = await categoryDao.getCategory(updatedCategory.id!);
@@ -106,8 +107,8 @@ void main() async {
 
     await paymentTypeDao.updatePaymentType(updatedFirstPaymentType);
 
-    final updatedPaymentType = await paymentTypeDao.getPaymentType(
-        updatedFirstPaymentType.id!);
+    final updatedPaymentType =
+        await paymentTypeDao.getPaymentType(updatedFirstPaymentType.id!);
 
     expect(updatedFirstPaymentType.id, updatedPaymentType.id);
     expect(updatedFirstPaymentType.name, updatedPaymentType.name);
@@ -117,45 +118,64 @@ void main() async {
 
     final count = (await paymentTypeDao.getPaymentTypes()).length;
     expect(count, 1);
-
   });
 
   test('record table test', () async {
-
     final categoryDao = CategoryDao(database);
     final paymentTypeDao = PaymentTypeDao(database);
     final recordDao = RecordDao(database);
 
-    final sampleCategory = category_model.Category(name: '카테고리', color: 1, type: CategoryType.income);
-    final samplePaymentType = payment_type_model.PaymentType(name: '현금');
+    // select all stream
+    final streamController = recordDao.getRecordsStream();
 
-    await categoryDao.insertCategory(sampleCategory);
-    await paymentTypeDao.insertPaymentType(samplePaymentType);
+    final sampleCategory1 = category_model.Category(
+        name: '카테고리1', color: 1, type: CategoryType.income);
+    final samplePaymentType1 = payment_type_model.PaymentType(name: '현금');
 
+    final sampleCategory2 = category_model.Category(
+        name: '카테고리2', color: 2, type: CategoryType.spending);
+    final samplePaymentType2 = payment_type_model.PaymentType(name: '카드');
+
+
+    await categoryDao.insertCategory(sampleCategory1);
+    await categoryDao.insertCategory(sampleCategory2);
+
+    await paymentTypeDao.insertPaymentType(samplePaymentType1);
+    await paymentTypeDao.insertPaymentType(samplePaymentType2);
     // ------------------------------------------------------------
 
     // insert
 
-    final categoryFirst = (await categoryDao.getCategories()).first;
-    final paymentTypeFirst = (await paymentTypeDao.getPaymentTypes()).first;
+    final categoryFirst = await categoryDao.getCategory(1);
+    final categorySecond = await categoryDao.getCategory(2);
 
-    await recordDao.insertRecord(record_model.Record(value: 1000, category: categoryFirst, paymentType: paymentTypeFirst));
-    await recordDao.insertRecord(record_model.Record(value: 2000, category: categoryFirst, paymentType: paymentTypeFirst));
+    final paymentTypeFirst = await paymentTypeDao.getPaymentType(1);
+    final paymentTypeSecond = await paymentTypeDao.getPaymentType(2);
+
+    await recordDao.insertRecord(record_model.Record(
+        value: 1000, category: categoryFirst, paymentType: paymentTypeFirst));
+    await recordDao.insertRecord(record_model.Record(
+        value: 4000, category: categorySecond, paymentType: paymentTypeSecond));
+
+    // -----------------------------------------------------------
+
 
     // select
     var firstRecord = await recordDao.getRecord(1);
     expect(firstRecord.id, 1);
+
+    // ------------------------------------------------------------
 
     // update
     await recordDao.updateRecord(firstRecord.copyWith(value: 3000));
     firstRecord = await recordDao.getRecord(1);
     expect(firstRecord.value, 3000);
 
+    // -------------------------------------------------------------
+
     // delete
-
-
-    // select all stream
-
-
+    await recordDao.deleteRecord(1);
+    final count = (await recordDao.getRecords()).length;
+    expect(1, count);
   });
 }

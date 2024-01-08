@@ -26,7 +26,7 @@ class Record extends Table {
 class RecordDao extends DatabaseAccessor<Database> with _$RecordDaoMixin {
   RecordDao(Database db) : super(db);
 
-  Stream<List<model.Record>> getRecords() {
+  Stream<List<model.Record>> getRecordsStream() {
     final query = (select(record).join([
       innerJoin(category, category.id.equalsExp(record.id)),
       innerJoin(paymentType, paymentType.id.equalsExp(record.id))
@@ -56,6 +56,38 @@ class RecordDao extends DatabaseAccessor<Database> with _$RecordDaoMixin {
 
   }
 
+
+  Future<List<model.Record>> getRecords() {
+    final query = (select(record).join([
+      innerJoin(category, category.id.equalsExp(record.id)),
+      innerJoin(paymentType, paymentType.id.equalsExp(record.id))
+    ]));
+
+    return query.map((row) {
+      final r = row.readTable(record);
+      final c = row.readTable(category);
+      final p  = row.readTable(paymentType);
+
+      return model.Record(
+          id: r.id,
+          value: r.value,
+          category: category_model.Category(
+              id: c.id,
+              name: c.name,
+              type: c.type,
+              color: c.color
+          ),
+          paymentType: paymentType_model.PaymentType(
+            id: p.id,
+            name: p.name,
+          ),
+          timestamp: r.timestamp
+      );
+    }).get();
+
+  }
+
+
   Future insertRecord(model.Record data) async {
     return into(record).insert(RecordCompanion(
       category: Value(data.category.id!),
@@ -68,6 +100,7 @@ class RecordDao extends DatabaseAccessor<Database> with _$RecordDaoMixin {
     return (update(record)..where((tbl) => tbl.id.equals(data.id!)))
         .write(RecordCompanion(
       category: Value(data.category.id!),
+      timestamp: Value(data.timestamp!),
       value: Value(data.value),
       paymentType: Value(data.paymentType.id!),
     ));
@@ -104,5 +137,5 @@ class RecordDao extends DatabaseAccessor<Database> with _$RecordDaoMixin {
     });
   }
   Future deleteRecord(int id) async =>
-      delete(record)..where((tbl) => tbl.id.equals(id));
+      (delete(record)..where((tbl) => tbl.id.equals(id))).go();
 }
