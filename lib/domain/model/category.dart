@@ -9,6 +9,7 @@ class Category with _$Category {
   factory Category({
     int? id,
     required String name,
+    required int color,
     required CategoryType type,
   }) = _Category;
 
