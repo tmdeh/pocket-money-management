@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
-import 'package:pocket_money_management_app/data/dao/category.dart';
-import 'package:pocket_money_management_app/data/dao/payment_type.dart';
-import 'package:pocket_money_management_app/data/database_setup.dart';
+import 'package:pocket_money_management_app/data/data_source/dao/category.dart';
+import 'package:pocket_money_management_app/data/data_source/dao/payment_type.dart';
+import 'package:pocket_money_management_app/data/data_source/database_setup.dart';
 
 import 'package:pocket_money_management_app/domain/model/record.dart' as model;
 import 'package:pocket_money_management_app/domain/model/category.dart' as category_model;

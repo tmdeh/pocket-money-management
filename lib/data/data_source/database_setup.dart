@@ -6,10 +6,9 @@ import 'package:drift/native.dart';
 import 'package:injectable/injectable.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
-import 'package:pocket_money_management_app/core/category_type.dart';
-import 'package:pocket_money_management_app/data/dao/category.dart';
-import 'package:pocket_money_management_app/data/dao/payment_type.dart';
-import 'package:pocket_money_management_app/data/dao/record.dart';
+import 'package:pocket_money_management_app/data/data_source/dao/category.dart';
+import 'package:pocket_money_management_app/data/data_source/dao/payment_type.dart';
+import 'package:pocket_money_management_app/data/data_source/dao/record.dart';
 import 'package:sqlite3/sqlite3.dart';
 import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 
@@ -24,7 +23,6 @@ class Database extends _$Database {
 
   @override
   int get schemaVersion => 1;
-
 
   @override
   MigrationStrategy get migration {

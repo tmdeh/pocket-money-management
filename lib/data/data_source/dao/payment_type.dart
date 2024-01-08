@@ -1,5 +1,5 @@
 import 'package:drift/drift.dart';
-import 'package:pocket_money_management_app/data/database_setup.dart';
+import 'package:pocket_money_management_app/data/data_source/database_setup.dart';
 import 'package:pocket_money_management_app/domain/model/payment_type.dart'
     as model;
 

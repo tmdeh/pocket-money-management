@@ -10,7 +10,7 @@ import 'package:pocket_money_management_app/domain/model/payment_type.dart'
 import 'package:pocket_money_management_app/domain/model/record.dart'
     as record_model;
 import 'package:pocket_money_management_app/data/dao/category.dart';
-import 'package:pocket_money_management_app/data/database_setup.dart';
+import 'package:pocket_money_management_app/data/data_source/database_setup.dart';
 
 void main() async {
   late Database database;
