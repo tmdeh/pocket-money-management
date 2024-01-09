@@ -1,9 +1,11 @@
 import 'package:drift/drift.dart';
+import 'package:injectable/injectable.dart';
 import 'package:pocket_money_management_app/data/data_source/database_setup.dart';
 import 'package:pocket_money_management_app/domain/model/payment_type.dart'
     as model;
 
 part 'payment_type.g.dart';
+
 
 class PaymentType extends Table {
   IntColumn get id => integer().autoIncrement()();
@@ -11,6 +13,7 @@ class PaymentType extends Table {
   TextColumn get name => text()();
 }
 
+@singleton
 @DriftAccessor(tables: [PaymentType])
 class PaymentTypeDao extends DatabaseAccessor<Database>
     with _$PaymentTypeDaoMixin {

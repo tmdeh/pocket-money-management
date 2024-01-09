@@ -19,6 +19,7 @@ class Category extends Table {
   TextColumn get type => textEnum<CategoryType>()();
 }
 
+@singleton
 @DriftAccessor(tables: [Category])
 class CategoryDao extends DatabaseAccessor<Database> with _$CategoryDaoMixin {
   CategoryDao(Database db) : super(db);

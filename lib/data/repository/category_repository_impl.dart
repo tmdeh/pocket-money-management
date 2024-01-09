@@ -1,0 +1,34 @@
+import 'package:pocket_money_management_app/data/data_source/dao/category.dart' hide Category;
+import 'package:pocket_money_management_app/di/setup.dart';
+import 'package:pocket_money_management_app/domain/model/category.dart';
+import 'package:pocket_money_management_app/domain/repository/category_repository.dart';
+
+class CategoryRepositoryImpl implements CategoryRepository {
+
+  final categoryDao = getIt<CategoryDao>();
+
+  @override
+  Future<void> delete(int id) async {
+    await categoryDao.deleteCategory(id);
+  }
+
+  @override
+  Future<Category> get(int id) async {
+    return await categoryDao.getCategory(id);
+  }
+
+  @override
+  Future<List<Category>> gets() async {
+    return await categoryDao.getCategories();
+  }
+
+  @override
+  Future<void> insert(Category data) async {
+    await categoryDao.insertCategory(data);
+  }
+
+  @override
+  Future<void> update(Category data) async {
+    await categoryDao.updateCategory(data);
+  }
+}
