@@ -5,7 +5,9 @@ import 'package:pocket_money_management_app/domain/repository/category_repositor
 
 class CategoryRepositoryImpl implements CategoryRepository {
 
-  final categoryDao = getIt<CategoryDao>();
+  late CategoryDao categoryDao;
+
+  CategoryRepositoryImpl(this.categoryDao);
 
   @override
   Future<void> delete(int id) async {

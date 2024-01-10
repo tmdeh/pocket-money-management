@@ -63,6 +63,8 @@ dev_dependencies:
   json_serializable: ^6.7.1
   sqflite_common_ffi: ^2.3.1
 
+  mockito: ^5.4.4
+
   drift_dev: ^2.14.0
 
   # 의존성 관리
