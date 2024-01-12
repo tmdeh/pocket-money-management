@@ -9,7 +9,10 @@ import 'package:pocket_money_management_app/domain/repository/payment_type_repos
 
 @Singleton(as: PaymentTypeRepository)
 class PaymentTypeRepositoryImpl implements PaymentTypeRepository {
-  final paymentTypeDao = getIt<PaymentTypeDao>();
+
+  PaymentTypeDao paymentTypeDao;
+
+  PaymentTypeRepositoryImpl(this.paymentTypeDao);
 
   @override
   Future<void> delete(int id) async {

@@ -22,14 +22,25 @@ void main() {
         Category(name: '카테고리 4', color: 3, type: CategoryType.spending, id: 3),
       ]);
 
+  when(mockCategoryDao.getCategory(1)).thenAnswer(
+    (_) async =>
+        Category(name: '카테고리 1', color: 1, type: CategoryType.income, id: 1),
+  );
+
   setUp(() {
     categoryRepository = CategoryRepositoryImpl(mockCategoryDao);
   });
 
-  test('category repository gets test', () async {
-    final categories = categoryRepository.gets();
+  group('category repository test', () {
+    test('gets test', () async {
+      final categories = await categoryRepository.gets();
+      expect(categories, isA<List<Category>>());
+    });
 
-
-
+    test('get test', () async {
+      final category = await categoryRepository.get(1);
+      expect(category, isA<Category>());
+      expect(category.id, 1);
+    });
   });
 }
