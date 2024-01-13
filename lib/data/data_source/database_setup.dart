@@ -16,7 +16,6 @@ import 'package:sqlite3_flutter_libs/sqlite3_flutter_libs.dart';
 
 part 'database_setup.g.dart';
 
-@singleton
 @DriftDatabase(tables: [Record, PaymentType, Category])
 class Database extends _$Database {
 
