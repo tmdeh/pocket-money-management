@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pocket_money_management_app/core/category_type.dart';
-import 'package:pocket_money_management_app/data/database_setup.dart';
+import 'package:pocket_money_management_app/data/data_source/database_setup.dart';
 import 'package:pocket_money_management_app/domain/model/category.dart'
     as model;
 
