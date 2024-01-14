@@ -4,6 +4,7 @@
 *.config.dart
 *.g.dart
 *.freezed.dart
+*.mocks.dart
 
 /ios/
 
