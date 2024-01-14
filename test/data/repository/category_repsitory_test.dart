@@ -36,11 +36,12 @@ void main() {
 
     test('get test', () async {
       const id = 1;
-      final category = await categoryRepository.get(id);
 
-      when(mockCategoryDao.getCategory(1)).thenAnswer(
+      when(mockCategoryDao.getCategory(id)).thenAnswer(
             (_) async => categories.firstWhere((element) => element.id == id),
       );
+
+      final category = await categoryRepository.get(id);
 
       expect(category, isA<Category>());
       expect(category.id, id);
@@ -49,16 +50,41 @@ void main() {
 
     test('insert test', () async {
 
-      const updatedCategoryName = '수정된 카테고리';
-      final updatedCategory = categories.first.copyWith(name: updatedCategoryName);
+      final newCategory = Category(id: 4,name: '새로운 카테고리', color: 4, type: CategoryType.spending);
 
+      when(mockCategoryDao.insertCategory(newCategory)).thenAnswer((_) async {
+        categories.add(newCategory);
+      });
+
+      await categoryRepository.insert(newCategory);
+
+      expect(newCategory, categories.last);
     });
 
     test('delete test', () async {
+      const id = 1;
+
+      when(mockCategoryDao.deleteCategory(id)).thenAnswer((_) async {
+        categories.removeWhere((element) => element.id == id);
+      });
+
+      await categoryRepository.delete(id);
+
+      // 존재 여부 확인
+      expect(categories.where((element) => element.id == id).isEmpty, true);
 
     });
 
     test('update test', () async {
+      const updatedCategoryName = '수정된 카테고리';
+      final updatedCategory = categories.first.copyWith(name: updatedCategoryName);
+
+      when(mockCategoryDao.updateCategory(updatedCategory)).thenAnswer((_) async {
+        categories[categories.indexWhere((e) => e.id == updatedCategory.id)] = updatedCategory;
+      });
+
+      await categoryRepository.update(updatedCategory);
+      expect(updatedCategory, categories.first);
 
     });
 

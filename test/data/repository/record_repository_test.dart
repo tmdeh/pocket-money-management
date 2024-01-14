@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
@@ -99,15 +97,12 @@ void main() {
       final updatedRecord = records.first.copyWith(value: 1000);
 
       when(recordDao.updateRecord(updatedRecord)).thenAnswer((realInvocation) async {
-         records = records.map((e) {
-          if(e.id == updatedRecord.id) {
-            e = updatedRecord;
-          }
-          return e;
-        }).toList();
+         records[records.indexWhere((element) => element.id == updatedRecord.id)] = updatedRecord;
       });
 
       await recordRepository.update(updatedRecord);
+
+      expect(updatedRecord, records.first);
     });
   });
 
