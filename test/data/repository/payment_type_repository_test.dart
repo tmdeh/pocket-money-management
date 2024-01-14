@@ -39,5 +39,19 @@ void main() {
       expect(paymentType, isA<PaymentType>());
       expect(paymentType.id, 1);
     });
+
+    test('insert test', () async {
+
+    });
+
+
+    test('delete test', () async {
+
+    });
+
+    test('update test', () async {
+
+    });
+
   });
 }

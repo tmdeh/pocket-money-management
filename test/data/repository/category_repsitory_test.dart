@@ -16,16 +16,11 @@ void main() {
 
   final mockCategoryDao = MockCategoryDao();
 
-  when(mockCategoryDao.getCategories()).thenAnswer((_) async => [
-        Category(name: '카테고리 1', color: 1, type: CategoryType.income, id: 1),
-        Category(name: '카테고리 2', color: 2, type: CategoryType.income, id: 2),
-        Category(name: '카테고리 4', color: 3, type: CategoryType.spending, id: 3),
-      ]);
-
-  when(mockCategoryDao.getCategory(1)).thenAnswer(
-    (_) async =>
-        Category(name: '카테고리 1', color: 1, type: CategoryType.income, id: 1),
-  );
+  var categories = [
+    Category(name: '카테고리 1', color: 1, type: CategoryType.income, id: 1),
+    Category(name: '카테고리 2', color: 2, type: CategoryType.income, id: 2),
+    Category(name: '카테고리 4', color: 3, type: CategoryType.spending, id: 3),
+  ];
 
   setUp(() {
     categoryRepository = CategoryRepositoryImpl(mockCategoryDao);
@@ -33,14 +28,39 @@ void main() {
 
   group('category repository test', () {
     test('gets test', () async {
-      final categories = await categoryRepository.gets();
-      expect(categories, isA<List<Category>>());
+      when(mockCategoryDao.getCategories()).thenAnswer((_) async => categories);
+
+      final mockCategories = await categoryRepository.gets();
+      expect(mockCategories, isA<List<Category>>());
     });
 
     test('get test', () async {
-      final category = await categoryRepository.get(1);
+      const id = 1;
+      final category = await categoryRepository.get(id);
+
+      when(mockCategoryDao.getCategory(1)).thenAnswer(
+            (_) async => categories.firstWhere((element) => element.id == id),
+      );
+
       expect(category, isA<Category>());
-      expect(category.id, 1);
+      expect(category.id, id);
     });
+
+
+    test('insert test', () async {
+
+      const updatedCategoryName = '수정된 카테고리';
+      final updatedCategory = categories.first.copyWith(name: updatedCategoryName);
+
+    });
+
+    test('delete test', () async {
+
+    });
+
+    test('update test', () async {
+
+    });
+
   });
 }
