@@ -12,6 +12,7 @@ final router = GoRouter(
         builder: (BuildContext context, GoRouterState state,
             StatefulNavigationShell navigationShell) {
           return Scaffold(
+            appBar: AppBar(),
             body: navigationShell,
             bottomNavigationBar: BottomNavigationBar(
               items: const [
