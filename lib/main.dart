@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:pocket_money_management_app/presentation/theme.dart';
 import 'package:pocket_money_management_app/router.dart';
 import 'package:pocket_money_management_app/di/setup.dart';
-import 'package:pocket_money_management_app/presentation/component/bottom_navigation.dart';
 
 void main() async {
   // 플랫폼 채널의 위젯 바인딩을 보장한다.
@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: router,
+      theme: theme
     );
   }
 }
