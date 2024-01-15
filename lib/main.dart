@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pocket_money_management_app/router.dart';
 import 'package:pocket_money_management_app/di/setup.dart';
 import 'package:pocket_money_management_app/presentation/component/bottom_navigation.dart';
 
@@ -8,8 +9,6 @@ void main() async {
 
   // 의존성 주입
   await configureDependencies();
-
-
   runApp(const MyApp());
 }
 
@@ -18,9 +17,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      initialRoute: '/',
-      home: BottomNavigator()
+    return MaterialApp.router(
+      routerConfig: router,
     );
   }
 }
