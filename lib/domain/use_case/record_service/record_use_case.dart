@@ -15,7 +15,6 @@ import 'package:pocket_money_management_app/domain/use_case/record_service/recor
 import 'package:pocket_money_management_app/domain/use_case/record_service/record/update_record_use_case.dart';
 
 class RecordUseCase {
-
   final GetRecordUseCase getRecord;
   final GetReCordsUseCase getReCords;
   final GetPaymentTypesUseCase getPaymentTypes;
@@ -35,20 +34,21 @@ class RecordUseCase {
   final DeleteCategoryUseCase deleteCategory;
   final DeletePaymentTypeUseCase deletePayment;
 
-  RecordUseCase(
-      this.getRecord,
-      this.getReCords,
-      this.getPaymentTypes,
-      this.getPaymentType,
-      this.getCategories,
-      this.getCategory,
-      this.addRecord,
-      this.addCategory,
-      this.addPayment,
-      this.updateRecord,
-      this.updateCategory,
-      this.paymentType,
-      this.deleteRecord,
-      this.deleteCategory,
-      this.deletePayment);
+  RecordUseCase({
+    required this.getRecord,
+    required this.getReCords,
+    required this.getPaymentTypes,
+    required this.getPaymentType,
+    required this.getCategories,
+    required this.getCategory,
+    required this.addRecord,
+    required this.addCategory,
+    required this.addPayment,
+    required this.updateRecord,
+    required this.updateCategory,
+    required this.paymentType,
+    required this.deleteRecord,
+    required this.deleteCategory,
+    required this.deletePayment,
+  });
 }
