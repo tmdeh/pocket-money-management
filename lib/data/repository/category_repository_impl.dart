@@ -1,5 +1,4 @@
 import 'package:pocket_money_management_app/data/data_source/dao/category.dart' hide Category;
-import 'package:pocket_money_management_app/di/setup.dart';
 import 'package:pocket_money_management_app/domain/model/category.dart';
 import 'package:pocket_money_management_app/domain/repository/category_repository.dart';
 
