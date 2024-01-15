@@ -2,7 +2,6 @@
 
 import 'package:injectable/injectable.dart';
 import 'package:pocket_money_management_app/data/data_source/dao/payment_type.dart' hide PaymentType;
-import 'package:pocket_money_management_app/di/setup.dart';
 import 'package:pocket_money_management_app/domain/model/payment_type.dart';
 import 'package:pocket_money_management_app/domain/repository/payment_type_repository.dart';
 
