@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pocket_money_management_app/presentation/screens/home_screen.dart';
+import 'package:pocket_money_management_app/presentation/screens/home/home_screen.dart';
 import 'package:pocket_money_management_app/presentation/screens/settings.dart';
 import 'package:pocket_money_management_app/presentation/screens/shopping.dart';
 import 'package:pocket_money_management_app/presentation/screens/stats.dart';
