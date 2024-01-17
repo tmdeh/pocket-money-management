@@ -1,7 +1,9 @@
+import 'package:injectable/injectable.dart';
 import 'package:pocket_money_management_app/data/data_source/dao/category.dart' hide Category;
 import 'package:pocket_money_management_app/domain/model/category.dart';
 import 'package:pocket_money_management_app/domain/repository/category_repository.dart';
 
+@Singleton(as: CategoryRepository)
 class CategoryRepositoryImpl implements CategoryRepository {
 
   late CategoryDao categoryDao;

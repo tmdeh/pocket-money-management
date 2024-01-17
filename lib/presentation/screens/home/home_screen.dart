@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pocket_money_management_app/presentation/screens/home/calender_event.dart';
 import 'package:pocket_money_management_app/presentation/screens/home/home_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -8,7 +9,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     final viewModel = context.watch<HomeViewModel>();
     final state = viewModel.state;
 
@@ -20,15 +20,20 @@ class HomeScreen extends StatelessWidget {
             child: TableCalendar(
               firstDay: DateTime.utc(2010, 10, 16),
               lastDay: DateTime.utc(2030, 3, 14),
-              focusedDay: DateTime.now(),
+              focusedDay: state.focusedDate,
+              currentDay: state.focusedDate,
               locale: 'ko',
               rowHeight: 45,
+              onDaySelected: (selectedDay, focusedDay) {
+                viewModel.onEvent(CalenderEvent.onTapDay(focusedDay));
+              }
             ),
           ),
           Flexible(
             flex: 1,
             child: Container(
-              color: Colors.black,
+              color: Colors.grey,
+              child: Text(state.focusedDate.toString()),
             ),
           ),
         ],

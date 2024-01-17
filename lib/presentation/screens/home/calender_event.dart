@@ -4,5 +4,5 @@ part 'calender_event.freezed.dart';
 
 @freezed
 class CalenderEvent with _$CalenderEvent {
-  const factory CalenderEvent.onTapDay() = OnTapDay;
+  const factory CalenderEvent.onTapDay(DateTime selectedDay) = OnTapDay;
 }
