@@ -1,7 +1,9 @@
 
 
+import 'package:injectable/injectable.dart';
 import 'package:pocket_money_management_app/domain/repository/record_repository.dart';
 
+@singleton
 class DeleteRecordUseCase {
 
   final RecordRepository _recordRepository;

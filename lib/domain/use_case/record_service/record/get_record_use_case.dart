@@ -1,8 +1,10 @@
 
 
+import 'package:injectable/injectable.dart';
 import 'package:pocket_money_management_app/domain/repository/record_repository.dart';
 import 'package:pocket_money_management_app/domain/model/record.dart';
 
+@singleton
 class GetRecordUseCase {
   final RecordRepository _recordRepository;
   GetRecordUseCase(this._recordRepository);

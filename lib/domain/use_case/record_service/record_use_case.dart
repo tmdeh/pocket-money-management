@@ -1,3 +1,4 @@
+import 'package:injectable/injectable.dart';
 import 'package:pocket_money_management_app/domain/use_case/record_service/category/add_category_use_case.dart';
 import 'package:pocket_money_management_app/domain/use_case/record_service/category/delete_category_use_case.dart';
 import 'package:pocket_money_management_app/domain/use_case/record_service/category/get_categories_use_case.dart';
@@ -14,6 +15,7 @@ import 'package:pocket_money_management_app/domain/use_case/record_service/recor
 import 'package:pocket_money_management_app/domain/use_case/record_service/record/get_records_use_case.dart';
 import 'package:pocket_money_management_app/domain/use_case/record_service/record/update_record_use_case.dart';
 
+@singleton
 class RecordUseCase {
   final GetRecordUseCase getRecord;
   final GetReCordsUseCase getReCords;

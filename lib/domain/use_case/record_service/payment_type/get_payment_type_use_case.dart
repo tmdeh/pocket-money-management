@@ -1,10 +1,11 @@
 
 
 
+import 'package:injectable/injectable.dart';
 import 'package:pocket_money_management_app/domain/repository/payment_type_repository.dart';
 import 'package:pocket_money_management_app/domain/model/payment_type.dart';
 
-
+@singleton
 class GetPaymentTypeUseCase {
   final PaymentTypeRepository _paymentTypeRepository;
 
