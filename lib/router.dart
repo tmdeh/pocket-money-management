@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pocket_money_management_app/di/setup.dart';
+import 'package:pocket_money_management_app/presentation/screens/home/add_record/add_record_screen.dart';
+import 'package:pocket_money_management_app/presentation/screens/home/add_record/add_record_view_model.dart';
 import 'package:pocket_money_management_app/presentation/screens/home/home_screen.dart';
 import 'package:pocket_money_management_app/presentation/screens/home/home_view_model.dart';
 import 'package:pocket_money_management_app/presentation/screens/settings.dart';
@@ -54,6 +56,16 @@ final router = GoRouter(
             routes: <RouteBase>[
               GoRoute(
                   path: '/home',
+                  routes: [
+                    GoRoute(
+                      path: 'add',
+                      builder: (BuildContext context, GoRouterState state) =>
+                      ChangeNotifierProvider(
+                        create: (_) => getIt<AddRecordViewModel>(),
+                        child: const AddRecordScreen(),
+                      )
+                    ),
+                  ],
                   builder: (BuildContext context, GoRouterState state) =>
                       ChangeNotifierProvider(
                         create: (_) => getIt<HomeViewModel>(),

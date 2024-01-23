@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pocket_money_management_app/presentation/screens/home/calender_event.dart';
 import 'package:pocket_money_management_app/presentation/screens/home/home_view_model.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,13 @@ class HomeScreen extends StatelessWidget {
     final state = viewModel.state;
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => context.push('/home/add'),
+        backgroundColor: Theme.of(context).primaryColor,
+        foregroundColor: Colors.white,
+        shape: const CircleBorder(),
+        child: const Icon(Icons.add),
+      ),
       body: Column(
         children: [
           Flexible(
