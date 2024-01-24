@@ -14,8 +14,9 @@ class HomeScreen extends StatelessWidget {
     final state = viewModel.state;
 
     return Scaffold(
+      appBar: AppBar(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => context.push('/home/add'),
+        onPressed: () => context.push('/add'),
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.white,
         shape: const CircleBorder(),
