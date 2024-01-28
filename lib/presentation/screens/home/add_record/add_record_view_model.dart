@@ -12,7 +12,7 @@ class AddRecordViewModel with ChangeNotifier {
 
   final RecordUseCase _recordUseCase;
 
-  AddRecordState _state = AddRecordState(type: CategoryType.income);
+  final AddRecordState _state = AddRecordState(type: CategoryType.income);
   AddRecordState get state => _state;
 
   AddRecordViewModel(this._recordUseCase);
