@@ -15,6 +15,20 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              title: const Text("카테고리 관리"),
+              onTap: () {},
+            ),
+            ListTile(
+              title: const Text("이용수단 관리"),
+              onTap: () {},
+            )
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => context.push('/add'),
         backgroundColor: Theme.of(context).primaryColor,
