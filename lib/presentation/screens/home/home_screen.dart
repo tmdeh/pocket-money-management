@@ -41,24 +41,23 @@ class HomeScreen extends StatelessWidget {
           Flexible(
             flex: 1,
             child: TableCalendar(
-              firstDay: DateTime.utc(2010, 10, 16),
-              lastDay: DateTime.utc(2030, 3, 14),
-              focusedDay: state.focusedDate,
-              currentDay: state.focusedDate,
-              calendarStyle: const CalendarStyle(
-                isTodayHighlighted: true,
-                markerSize: 100.0,
-              ),
-              locale: 'ko',
-              rowHeight: 40,
-              headerStyle: const HeaderStyle(
-                formatButtonVisible: false,
-                titleCentered: true,
-              ),
-              onDaySelected: (selectedDay, focusedDay) {
-                viewModel.onEvent(CalenderEvent.onTapDay(focusedDay));
-              }
-            ),
+                firstDay: DateTime.utc(2010, 10, 16),
+                lastDay: DateTime.utc(2030, 3, 14),
+                focusedDay: state.focusedDate,
+                currentDay: state.focusedDate,
+                calendarStyle: const CalendarStyle(
+                  isTodayHighlighted: true,
+                  markerSize: 100.0,
+                ),
+                locale: 'ko',
+                rowHeight: 40,
+                headerStyle: const HeaderStyle(
+                  formatButtonVisible: false,
+                  titleCentered: true,
+                ),
+                onDaySelected: (selectedDay, focusedDay) {
+                  viewModel.onEvent(CalenderEvent.onTapDay(focusedDay));
+                }),
           ),
           Flexible(
             flex: 1,

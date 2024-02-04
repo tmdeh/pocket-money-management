@@ -1,6 +1,8 @@
 import 'package:drift/native.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pocket_money_management_app/core/category_type.dart';
+import 'package:pocket_money_management_app/core/default_category.dart';
+import 'package:pocket_money_management_app/core/default_payment_type.dart';
 import 'package:pocket_money_management_app/data/data_source/dao/category.dart';
 import 'package:pocket_money_management_app/data/data_source/dao/payment_type.dart';
 import 'package:pocket_money_management_app/data/data_source/dao/record.dart';
@@ -26,6 +28,20 @@ void main() async {
   test('데이터베이스가 제대로 생성되는지 테스트', () async {
     final tables = database.allTables.toList();
     expect(tables.length, 3);
+  });
+
+  test('default category, paymentType is exist', () async {
+    final categoryDao = CategoryDao(database);
+    final paymentTypeDao = PaymentTypeDao(database);
+
+    final categories = await categoryDao.getCategories();
+    final paymentTypes = await paymentTypeDao.getPaymentTypes();
+
+    expect(categories.length, defaultCategories.length);
+    expect(paymentTypes.length, defaultPaymentTypes.length);
+
+    expect(categories.first, isA<category_model.Category>());
+    expect(paymentTypes.first, isA<payment_type_model.PaymentType>());
   });
 
   test('category table test', () async {
@@ -136,7 +152,6 @@ void main() async {
         name: '카테고리2', color: 2, type: CategoryType.spending);
     final samplePaymentType2 = payment_type_model.PaymentType(name: '카드');
 
-
     await categoryDao.insertCategory(sampleCategory1);
     await categoryDao.insertCategory(sampleCategory2);
 
@@ -158,7 +173,6 @@ void main() async {
         value: 4000, category: categorySecond, paymentType: paymentTypeSecond));
 
     // -----------------------------------------------------------
-
 
     // select
     var firstRecord = await recordDao.getRecord(1);
